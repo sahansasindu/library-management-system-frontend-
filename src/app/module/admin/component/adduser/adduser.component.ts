@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {UserserviceService} from "../../../stater/service/userservice.service";
 import {Router} from "@angular/router";
+import {AdminseviceService} from "../../service/adminsevice.service";
 @Component({
   selector: 'app-adduser',
   templateUrl: './adduser.component.html',
@@ -11,8 +12,7 @@ export class AdduserComponent {
 
 
 
-  constructor(private registerUser:UserserviceService) {
-  }
+  constructor(private adminService: AdminseviceService) {}
 
 
 
@@ -32,14 +32,18 @@ export class AdduserComponent {
     console.log('Deleted Member ID:', memberid);
   }
 
+  // Add a new member functionality
   AddUser(AddUserForm: NgForm) {
     console.log(AddUserForm.value);
-    this.registerUser.register(AddUserForm.value).subscribe(
+    const memberData = AddUserForm.value;
+
+    this.adminService.addUserDetails(memberData).subscribe(
       response => {
-        console.log("Registration successful!", response);
+        console.log('Member added successfully!', response);
+
       },
       error => {
-        console.error("Registration failed!", error);
+        console.error('Error adding member!', error);
       }
     );
   }

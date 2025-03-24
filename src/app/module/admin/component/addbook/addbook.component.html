@@ -30,8 +30,13 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Category</label>
-        <input type="text" class="form-control" name="category" [(ngModel)]="book.category" required />
+        <select class="form-control" name="category" [(ngModel)]="book.category" required>
+          <option value="" disabled selected>Select Category</option>
+          <option value="Action">Action</option>
+          <option value="Romantic">Romantic</option>
+        </select>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Quantity</label>
         <input type="number" class="form-control" name="qty" [(ngModel)]="book.qty" required />

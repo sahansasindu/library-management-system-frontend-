@@ -9,6 +9,7 @@ import {Injectable} from "@angular/core";
 export class AdminseviceService {
 
   private readonly BASE_URL = 'http://localhost:8080/api/books';
+  private readonly Admin_URL = 'http://localhost:8080/api/v1/admin';
 
   private openedSubject = new BehaviorSubject<boolean>(false);
   public isOpened = this.openedSubject.asObservable();
@@ -31,8 +32,22 @@ export class AdminseviceService {
     return this.httpClient.get<any[]>(`${this.BASE_URL}/all`);
   }
 
+
+  // API call to add a member
+  public addUserDetails(memberData: any): Observable<any> {
+    return this.httpClient.post(`${this.Admin_URL}/adduser`, memberData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+
   public toggle(): void {
     this.openedSubject.next(!this.openedSubject.value);
+  }
+
+  public addMember(){
+
   }
 
 }
