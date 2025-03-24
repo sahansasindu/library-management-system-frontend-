@@ -51,11 +51,11 @@ export class AdduserComponent {
   }
 
   showAddUser() {
-    this.isAddMemberVisible = false; // Fixed: Set to false to show add member form
+    this.isAddMemberVisible = false;
   }
 
   showMemberList() {
-    this.isAddMemberVisible = true; // Fixed: Set to true to show member list
+    this.isAddMemberVisible = true;
   }
 }
 
