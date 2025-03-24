@@ -8,39 +8,31 @@ import {Injectable} from "@angular/core";
 })
 export class AdminseviceService {
 
-  private ADMIN_BASE_URL = 'http://localhost:8080/api/books/add'; // Backend API URL
-  private API_URL = 'http://localhost:8080/api/books/all'; // API to fetch books
+  private readonly BASE_URL = 'http://localhost:8080/api/books';
 
-  constructor(private httpClient: HttpClient, private authService: UserAuthService) {}
-
-  // Method to add a book
-  public addBook(bookData: any, file: File | null): Observable<any> {
-    const token = this.authService.getToken(); // Get token from storage
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Set token in headers
-    });
-
-    const formData = new FormData();
-    formData.append('book', JSON.stringify(bookData)); // Attach book details
-    if (file) {
-      formData.append('file', file); // Attach file if available
-    }
-
-    return this.httpClient.post(this.ADMIN_BASE_URL, formData, { headers });
-  }
-
-  // Method to get all books
-  public getAllBooks(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.API_URL);
-  }
-
-  // Existing BehaviorSubject for toggle functionality
   private openedSubject = new BehaviorSubject<boolean>(false);
   public isOpened = this.openedSubject.asObservable();
 
-  public toggle() {
-    const newState = !this.openedSubject.value;
-    this.openedSubject.next(newState);
+  constructor(private httpClient: HttpClient, private authService: UserAuthService) {}
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
+
+  public addBook(bookData: any, file: File | null = null): Observable<any> {
+    const formData = new FormData();
+    formData.append('book', JSON.stringify(bookData));
+    if (file !== null) formData.append('file', file);
+    return this.httpClient.post(`${this.BASE_URL}/add`, formData, { headers: this.getAuthHeaders() });
+  }
+
+  public getAllBooks(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/all`);
+  }
+
+  public toggle(): void {
+    this.openedSubject.next(!this.openedSubject.value);
+  }
+
 }
