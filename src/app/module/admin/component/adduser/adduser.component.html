@@ -2,14 +2,17 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">MANAGE MEMBERS</a>
-      <div class="d-flex">
-        <button class="btn btn-outline-primary me-2" (click)="showAddUser()">Add Member</button>
+      <div class="d-flex gap-3"> <!-- Added gap-3 for consistent spacing -->
+        <button class="btn btn-outline-primary" (click)="showAddUser()">Add Member</button>
         <button class="btn btn-outline-secondary" (click)="showMemberList()">Display Members</button>
+        <button class="btn btn-outline-primary" (click)="ManageProfile()">Manage Profile</button>
       </div>
     </div>
   </nav>
+</div>
 
-  <div class="container mt-5" *ngIf="isAddMemberVisible">
+
+<div class="container mt-5" *ngIf="viewMode === 'showmember'">
     <h2 class="mb-4">Library Members</h2>
     <table class="table table-bordered">
       <thead>
@@ -37,7 +40,7 @@
 </div>
 
 
-<div class="container mt-5" *ngIf="!isAddMemberVisible">
+<div class="container mt-5" *ngIf="viewMode === 'addmember'">
   <h2 class="mb-4">Add Member</h2>
   <form #AddUserForm="ngForm" (ngSubmit)="AddUser(AddUserForm)">
 
@@ -83,3 +86,29 @@
   </form>
 </div>
 
+  <div class="container mt-5" *ngIf="viewMode === 'manageprofile'">
+    <h2 class="mb-4">Manage Profile</h2>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{ member.memberid }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.password }}</td>
+        <td>{{ member.role }}</td>
+        <td>
+          <button class="btn btn-warning" (click)="editMember(member)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteMember(member.memberid)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>

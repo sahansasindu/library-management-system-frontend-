@@ -10,7 +10,7 @@ import {AdminseviceService} from "../../service/adminsevice.service";
 })
 export class AdduserComponent {
 
-  isAddMemberVisible = true; // Toggle between Add Book & Display Books
+  viewMode: string = 'showmember'; // Toggle between Add Book & Display Books
 
 
 
@@ -51,11 +51,15 @@ export class AdduserComponent {
   }
 
   showAddUser() {
-    this.isAddMemberVisible = false;
+    this.viewMode = 'showmember';
   }
 
   showMemberList() {
-    this.isAddMemberVisible = true;
+    this.viewMode = 'addmember';
+  }
+
+  ManageProfile() {
+    this.viewMode = 'manageprofile';
   }
 }
 
