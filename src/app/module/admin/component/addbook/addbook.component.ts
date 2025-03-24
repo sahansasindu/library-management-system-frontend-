@@ -11,6 +11,7 @@ export class AddbookComponent implements OnInit {
   isAddBookVisible = true; // Toggle between Add Book & Display Books
 
   book = {
+    bookid:'',
     title: '',
     author: '',
     isbn: '',
