@@ -1,0 +1,37 @@
+.active {
+  background-color: #c6ccc6;
+}
+
+.mat-drawer {
+  width: 200px;
+  min-width: 200px;
+  padding: 16px;
+  background-color: #9da7b6;
+  height: 100%;
+
+}
+
+mat-drawer-container {
+  position: fixed;
+  height: 89%;
+  width: 100%;
+  background-color: transparent;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+a {
+  color: #080908;
+  text-decoration: none;
+}
+
+a:hover,
+.active span {
+  font-weight: bold;
+
+
+}

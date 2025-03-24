@@ -1,0 +1,38 @@
+<app-userheader></app-userheader>
+
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer [opened]="opened" class="example-sidenav" mode="side">
+    <mat-list>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>dashboard</mat-icon>
+        <a routerLink="dashboard" mat-line>Dashboard</a>
+      </mat-list-item>
+
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <a routerLink="" mat-line>Addbook</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <a routerLink="" mat-line>Cars</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <a routerLink="" mat-line>Cars</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <a routerLink="/cars" mat-line>Cars</a>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-drawer>
+
+  <!-- Main Content -->
+  <mat-drawer-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
