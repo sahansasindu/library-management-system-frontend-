@@ -8,6 +8,8 @@ import {MatIcon} from "@angular/material/icon";
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import {MatDrawer, MatDrawerContainer, MatSidenavModule} from "@angular/material/sidenav";
 import {MatList, MatListItem} from "@angular/material/list";
+import { BookresavationComponent } from './component/bookresavation/bookresavation.component';
+import { ManageprofileComponent } from './component/manageprofile/manageprofile.component';
 
 
 
@@ -17,6 +19,8 @@ import {MatList, MatListItem} from "@angular/material/list";
     UserComponent,
     UserheaderComponent,
     DashboardComponent,
+    BookresavationComponent,
+    ManageprofileComponent,
 
   ],
   imports: [

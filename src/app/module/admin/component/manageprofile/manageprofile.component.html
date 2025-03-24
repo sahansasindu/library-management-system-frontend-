@@ -1,1 +1,19 @@
-<p>manageprofile works!</p>
+<div class="container mt-4">
+  <h2>Manage Profile</h2>
+  <form #updateprofileForm="ngForm" (ngSubmit)="onSubmit(updateprofileForm)">
+
+    <!-- Email -->
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="text" class="form-control" name="email" [(ngModel)]="email" required />
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="password" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Conform</button>
+  </form>
+</div>
