@@ -16,7 +16,7 @@ export class AddbookComponent implements OnInit {
     author: '',
     isbn: '',
     category: '',
-    qty: 0 // Ensure a number value
+    qty: 0
   };
 
   bookList: any[] = []; // List to hold fetched books
@@ -62,7 +62,17 @@ export class AddbookComponent implements OnInit {
     this.isAddBookVisible = false;
   }
 
-  removeBook(book: any) {
-    this.bookList = this.bookList.filter(b => b !== book);
+
+  reserveBook(book: any) {
+    // Mark the book as reserved
+    book.reserved = true;
+
+  }
+
+  closeReservation(book: any) {
+    // Mark the book reservation as closed
+    book.reserved = false;
+
+    // Update the book list locally (assuming backend stores the reservation status)
   }
 }
