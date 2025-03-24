@@ -10,6 +10,8 @@ import {AdminseviceService} from "../../service/adminsevice.service";
 })
 export class AdduserComponent {
 
+  isAddMemberVisible = true; // Toggle between Add Book & Display Books
+
 
 
   constructor(private adminService: AdminseviceService) {}
@@ -48,7 +50,14 @@ export class AdduserComponent {
     );
   }
 
+  showAddUser() {
+    this.isAddMemberVisible = false; // Fixed: Set to false to show add member form
   }
+
+  showMemberList() {
+    this.isAddMemberVisible = true; // Fixed: Set to true to show member list
+  }
+}
 
 
 
