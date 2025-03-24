@@ -1,0 +1,74 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Library Members</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Member ID</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let member of members">
+      <td>{{ member.memberid }}</td>
+      <td>{{ member.email }}</td>
+      <td>{{ member.password }}</td>
+      <td>{{ member.role }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editMember(member)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteMember(member.memberid)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="container mt-5">
+  <h2 class="mb-4">Add Member</h2>
+  <form #AddUserForm="ngForm" (ngSubmit)="AddUser(AddUserForm)">
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="memberid" class="form-label">Member ID</label>
+        <input type="text" class="form-control" id="memberid" placeholder="Enter Member ID" ngModel name="member_id" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="firstname" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" ngModel name="first_name" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" ngModel name="last_name" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="dob" class="form-label">Date of Birth</label>
+        <input type="date" class="form-control" id="dob" ngModel name="dob" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="nic_no" class="form-label">NIC Number</label>
+        <input type="text" class="form-control" id="nic_no" placeholder="Enter NIC Number" ngModel name="nic_no" required>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="phone_no" class="form-label">Phone Number</label>
+        <input type="text" class="form-control" id="phone_no" placeholder="Enter Phone Number" ngModel name="phone_no" required>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">Address</label>
+      <input type="text" class="form-control" id="address" placeholder="Enter Address" ngModel name="address" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+

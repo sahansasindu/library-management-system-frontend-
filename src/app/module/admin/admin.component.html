@@ -1,0 +1,38 @@
+<app-adminheader></app-adminheader>
+
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer [opened]="opened" class="example-sidenav" mode="side">
+    <mat-list>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>dashboard</mat-icon>
+        <a routerLink="admindashboard" mat-line>Dashboard</a>
+      </mat-list-item>
+
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>adduser</mat-icon>
+        <a routerLink="adduser" mat-line>Adduser</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <a routerLink="addbook" mat-line>Manage Book</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>profile</mat-icon>
+        <a routerLink="manageprofile" mat-line>profile</a>
+      </mat-list-item>
+      <mat-list-item [routerLinkActive]="['active']">
+        <mat-icon color="primary" mat-list-icon>logout</mat-icon>
+        <a routerLink="" mat-line>Logout</a>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-drawer>
+
+  <!-- Main Content -->
+  <mat-drawer-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
