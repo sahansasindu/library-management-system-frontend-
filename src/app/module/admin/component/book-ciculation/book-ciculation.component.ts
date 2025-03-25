@@ -1,18 +1,32 @@
 import { Component } from '@angular/core';
+import { AdminseviceService } from "../../service/adminsevice.service";
 
 @Component({
   selector: 'app-book-ciculation',
   templateUrl: './book-ciculation.component.html',
-  styleUrl: './book-ciculation.component.scss'
+  styleUrls: ['./book-ciculation.component.scss']
 })
 export class BookCiculationComponent {
   viewMode: string = 'reserved'; // Default view
 
-  issueBook1 = {
+  constructor(private adminService: AdminseviceService) {}
+
+  issueBookData = {
     member_id: '',
     book_id: '',
     issue_date: '',
     return_date: ''
+  };
+
+  returnBookData = {
+    memberid: '',
+    bookid: '',
+    recived_date: ''
+  };
+
+  reserveBookData = {
+    member_id: '',
+    book_id: ''
   };
 
   members = [
@@ -50,14 +64,25 @@ export class BookCiculationComponent {
     this.viewMode = 'returned';
   }
 
-  onSubmit(form: any) {
+  onIssueSubmit(form: any) {
     if (form.valid) {
-      console.log("Issued Book:", this.issueBook);
-      alert("Book issued successfully!");
-
-      // Reset the form after submission
-
-      form.resetForm();
+      this.adminService.borrowBook(this.issueBookData).subscribe(
+        () => { alert('Book issued successfully!'); form.reset(); },
+        () => { alert('Failed to issue book!'); }
+      );
     }
   }
+
+  onReturnSubmit(form: any) {
+    if (form.valid) {
+      console.log("Reserve Book Data: ", this.returnBookData);
+
+      this.adminService.returnBook(this.returnBookData).subscribe(
+        () => { alert('Book returned successfully!'); form.reset(); },
+        () => { alert('Failed to return book!'); }
+      );
+    }
+  }
+
+
 }

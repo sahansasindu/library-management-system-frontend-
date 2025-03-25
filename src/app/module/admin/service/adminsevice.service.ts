@@ -41,9 +41,22 @@ export class AdminseviceService {
   }
 
 
-
   public toggle(): void {
     this.openedSubject.next(!this.openedSubject.value);
+  }
+
+
+  public borrowBook(issueData: any): Observable<any> {
+    return this.httpClient.post(`${this.BASE_URL}/borrowbookrecoard`, issueData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  public returnBook(returnData: any): Observable<any> {
+    return this.httpClient.post(`${this.BASE_URL}/returnbook`, returnData, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   public addMember(){
