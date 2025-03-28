@@ -1,34 +1,83 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card shadow-lg">
-        <div class="card-header bg-primary text-white text-center">
-          <h3>Register</h3>
-        </div>
-        <div class="card-body">
-          <form #RegisterForm="ngForm" (ngSubmit)="Register(RegisterForm)">
-            <div class="mb-3">
-              <label for="memberid" class="form-label">Member Id</label>
-              <input type="text" class="form-control" id="memberid" placeholder="Enter your member id" ngModel name="memberid" required>
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Enter your email" ngModel name="email" required>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password" ngModel name="password" required>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Register</button>
-            </div>
-          </form>
-        </div>
-        <div class="card-footer text-center">
-          <small>Already have an account? <a routerLink="/stater/login">Login</a></small>
-        </div>
+<div class="container d-flex justify-content-center align-items-center vh-95">
+  <div class="col-md-6">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-header bg-gradient text-white text-center rounded-top-4">
+        <h4 class="fw-bold">Create an Account</h4>
+      </div>
+      <div class="card-body p-4">
+        <form #RegisterForm="ngForm" (ngSubmit)="Register(RegisterForm)">
+          <div class="mb-3">
+            <label for="memberid" class="form-label fw-semibold">Member ID</label>
+            <input type="text" class="form-control input-custom" id="memberid" placeholder="Enter your member ID" ngModel name="memberid" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Email</label>
+            <input type="email" class="form-control input-custom" id="email" placeholder="Enter your email" ngModel name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label fw-semibold">Password</label>
+            <input type="password" class="form-control input-custom" id="password" placeholder="Enter password" ngModel name="password" required>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg rounded-3">Register</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center bg-light rounded-bottom-4">
+        <small>Already have an account? <a routerLink="/stater/login" class="text-primary fw-bold">Log in</a></small>
       </div>
     </div>
   </div>
 </div>
 
+<style>
+  /* Background gradient for the card header */
+  .bg-gradient {
+    background: linear-gradient(135deg, #4b0082, #3350c4);
+    padding: 15px;
+    min-height: 60px; /* Ensures header has enough space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Styling for card header text */
+  .card-header h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0; /* Prevents extra spacing issues */
+  }
+
+  /* Custom styling for form inputs */
+  .input-custom {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .input-custom:focus {
+    border-color: #393bcb;
+    box-shadow: 0 0 10px rgba(106, 13, 173, 0.3);
+  }
+
+  /* Button hover effect */
+  .btn-primary:hover {
+    background: #3d38e0;
+    transition: 0.3s;
+  }
+
+  /* Card Styling */
+  .card {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Better spacing */
+  .card-body {
+    padding: 30px;
+  }
+  .fw-bold{
+    color: #080908;
+  }
+
+
+</style>
