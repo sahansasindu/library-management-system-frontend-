@@ -51,11 +51,12 @@ export class AdduserComponent {
   }
 
   showAddUser() {
-    this.viewMode = 'showmember';
+
+    this.viewMode = 'addmember';
   }
 
   showMemberList() {
-    this.viewMode = 'addmember';
+    this.viewMode = 'showmember';
   }
 
   ManageProfile() {
