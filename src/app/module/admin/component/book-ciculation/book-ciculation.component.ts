@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AdminseviceService } from "../../service/adminsevice.service";
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-book-ciculation',
   templateUrl: './book-ciculation.component.html',
-  styleUrls: ['./book-ciculation.component.scss']
+  styleUrls: ['./book-ciculation.component.scss'],
+  providers: [DatePipe]
 })
-export class BookCiculationComponent {
+export class BookCiculationComponent implements OnInit{
   viewMode: string = 'reserved'; // Default view
 
   constructor(private adminService: AdminseviceService) {}
@@ -29,12 +31,87 @@ export class BookCiculationComponent {
     book_id: ''
   };
 
-  members = [
-    { memberid: 'LB0001', email: 'user1@example.com', role: 'ADMIN' },
-    { memberid: 'LB0002', email: 'user2@example.com', role: 'USER' },
-    { memberid: 'LB0003', email: 'user3@example.com', role: 'USER' },
-    { memberid: 'LB0004', email: 'admin1@example.com', role: 'ADMIN' }
-  ];
+
+  reservedBooks: any[] = [];
+  issueBooks: any[] = [];
+  returnBooks: any[] = [];
+
+
+  ngOnInit() {
+    this.fetchIssuedBooks();
+    this.fetchReservedBooks();
+    this.fetchReturnedBooks();
+  }
+
+
+   fetchReservedBooks() {
+     this.adminService.getReservedBooks().subscribe(
+       (response: any) => {
+         console.log("API Response:", response);
+
+
+         if (response && response.data && Array.isArray(response.data)) {
+           this.reservedBooks = response.data;
+         } else {
+           this.reservedBooks = [];
+         }
+
+         console.log("Formatted Data:", this.reservedBooks);
+       },
+       (error) => {
+         console.error("Error fetching reserved books:", error);
+         this.reservedBooks = [];
+       }
+     );
+
+
+  }
+
+
+
+
+
+  fetchIssuedBooks() {
+    this.adminService.getIssuedBooks().subscribe(
+      (response: any) => {
+        console.log("Issued Books API Response:", response);
+
+        if (response && response.data && Array.isArray(response.data)) {
+          this.issueBooks = response.data;
+        } else {
+          this.issueBooks = [];
+        }
+
+        console.log("Formatted Issued Books:", this.issueBooks);
+      },
+      (error) => {
+        console.error("Error fetching issued books:", error);
+        this.issueBooks = [];
+      }
+    );
+  }
+
+
+  fetchReturnedBooks() {
+    this.adminService.getReturnedBooks().subscribe(
+      (response: any) => {
+        console.log("Returned Books:", response);
+
+        if (response && response.data && Array.isArray(response.data)) {
+          this.returnBooks = response.data;
+        } else {
+          this.issueBooks = [];
+        }
+        console.log("Formatted Returned Books:", this.returnBooks);
+      },
+      (error) => {
+        console.error("Error fetching issued books:", error);
+        this.issueBooks = [];
+      }
+    );
+  }
+
+
 
   showReservedBook() {
     this.viewMode = 'reserved';
@@ -45,7 +122,7 @@ export class BookCiculationComponent {
   }
 
   deleteMember(memberId: string) {
-    this.members = this.members.filter(member => member.memberid !== memberId);
+
   }
 
   editMember(memberId: string) {

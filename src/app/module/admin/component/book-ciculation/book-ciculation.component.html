@@ -20,24 +20,25 @@
     <thead>
     <tr>
       <th>Member ID</th>
-      <th>Email</th>
-      <th>Role</th>
+      <th>Book ID</th>
+      <th>Reserved Date</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let member of members">
-      <td>{{ member.memberid }}</td>
-      <td>{{ member.email }}</td>
-      <td>{{ member.role }}</td>
+    <tr *ngFor="let reserved of reservedBooks">
+      <td>{{ reserved.member_id }}</td>
+      <td>{{ reserved.book_id }}</td>
+      <td>{{ reserved.reservedDate }}</td>
       <td>
-        <button class="btn btn-warning" (click)="editMember(member.memberid)">Edit</button>
-        <button class="btn btn-danger" (click)="deleteMember(member.memberid)">Delete</button>
+        <button class="btn btn-warning" (click)="editMember(reserved)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteMember(reserved)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
+
 
 <!-- Issue Book Form -->
 <div class="container mt-4" *ngIf="viewMode === 'issueform'">
@@ -74,3 +75,64 @@
     <button type="submit" class="btn btn-primary">Return Book</button>
   </form>
 </div>
+
+
+<!-- Issue Books -->
+<div class="container mt-5" *ngIf="viewMode === 'issued'">
+  <h2 class="mb-4">Issued Books</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Member ID</th>
+      <th>Book ID</th>
+      <th>Issue Date</th>
+      <th>Due Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let issued of issueBooks">
+      <td>{{ issued.member_id }}</td>
+      <td>{{ issued.book_id }}</td>
+      <td>{{ issued.issueDate }}</td>
+      <td>{{ issued.dueDate }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editMember(issued)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteMember(issued)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Returned Books View -->
+<div class="container mt-5" *ngIf="viewMode === 'returned'">
+  <h2 class="mb-4">Returned Books</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Book ID</th>
+      <th>Member ID</th>
+      <th>Recived Date</th>
+      <th>Penalty Amount</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let return of returnBooks">
+      <td>{{ return.book_id }}</td>
+      <td>{{ return.member_id }}</td>
+      <td>{{ return.recived_date }}</td>
+      <td>{{ return.penalty_amount}}</td>
+      <td>
+        <button class="btn btn-warning" (click)="editMember(return)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteMember(return)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+

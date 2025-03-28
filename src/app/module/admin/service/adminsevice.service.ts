@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserAuthService} from "../../../service/user-auth.service";
 import {Injectable} from "@angular/core";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -59,8 +60,32 @@ export class AdminseviceService {
     });
   }
 
-  public addMember(){
 
+  public getReservedBooks(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/reservationdetails`, {
+      headers: this.getAuthHeaders(),
+    });
   }
+
+
+  public getIssuedBooks(): Observable<any> {
+    return this.httpClient.get<any>(`${this.BASE_URL}/issueBookdetails`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
+  public getReturnedBooks(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/returnbookdetails`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public getMemberDetails():Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.Admin_URL}/getallmembers`, {
+      headers:this.getAuthHeaders(),
+    });
+  }
+
 
 }
