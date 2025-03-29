@@ -88,4 +88,18 @@ export class AdminseviceService {
   }
 
 
+  public addFeeInformation(conditionData: any): Observable<any> {
+    return this.httpClient.post(`${this.Admin_URL}/addinformation`, conditionData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  public getFeeInformation(): Observable<any> {
+    return this.httpClient.get(`${this.Admin_URL}/getinformation`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
 }
