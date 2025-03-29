@@ -20,7 +20,7 @@ export class UserAuthService {
   }
 
   public getToken(): String {
-    return <String>localStorage.getItem('token'); // Correct key
+    return <String>localStorage.getItem('access_token'); // Correct key
   }
 
   public clear(){
