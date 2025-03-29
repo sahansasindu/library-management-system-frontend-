@@ -10,7 +10,8 @@ import {MatDrawer, MatDrawerContainer, MatSidenavModule} from "@angular/material
 import {MatList, MatListItem, MatListModule} from "@angular/material/list";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import { NotfoundpageComponent } from './component/notfoundpage/notfoundpage.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, provideHttpClient, withInterceptors} from "@angular/common/http";
+import {httpManagerInterceptor} from "./interceptor/http-manager.interceptor";
 
 
 
@@ -37,7 +38,8 @@ import {HttpClientModule} from "@angular/common/http";
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([httpManagerInterceptor])) // Register the interceptor
   ],
   exports: [
 
