@@ -38,7 +38,7 @@ export class LoginComponent {
 
 
         this.userAuthService.setRoles(response.role);
-        this.userAuthService.setToken(response.token);
+        this.userAuthService.setToken('access_token',response.token);
         const  role=response.role;
 
         if (role === 'ADMIN') {
