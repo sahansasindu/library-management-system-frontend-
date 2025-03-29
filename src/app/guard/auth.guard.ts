@@ -8,6 +8,9 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(UserAuthService);
   const router = inject(Router);
 
+  console.log("Checking authGuard - Token exists:", authService.isExists('access_token'));
+
+
   if (authService.isExists('access_token')) {
     return true; // Allow access
   } else {
