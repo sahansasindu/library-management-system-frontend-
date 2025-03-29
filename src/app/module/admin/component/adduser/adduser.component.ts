@@ -44,12 +44,16 @@ export class AdduserComponent implements OnInit{
     console.log('Edit Member:', member);
   }
 
-  activeMember(memberid: any) {
-
+  activeMember(account: any) {
+    this.updateUserStatus(account.memberid, true);
+    this.ManageProfile();
   }
-  inactiveMember(memberid: any) {
 
+  inactiveMember(account: any) {
+    this.updateUserStatus(account.memberid, false);
+    this.ManageProfile();
   }
+
 
   // Add a new member functionality
   AddUser(AddUserForm: NgForm) {
@@ -84,6 +88,22 @@ export class AdduserComponent implements OnInit{
       }
     );
   }
+
+
+  updateUserStatus(memberId: string, newState: boolean) {
+    this.adminService.updateUserState(memberId, newState).subscribe(
+      response => {
+        console.log('Update Successful:', response);
+        alert('User state updated successfully');
+      },
+      error => {
+        console.error('Update Failed:', error);
+        alert('Failed to update user state');
+      }
+    );
+  }
+
+
 
 
   showAddUser() {

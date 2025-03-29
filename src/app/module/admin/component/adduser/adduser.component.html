@@ -111,14 +111,10 @@
         <td>{{ account.role }}</td>
         <td>{{ account.active_state }}</td>
         <td>
-          <button *ngIf="!account.active_state" class="btn btn-success" (click)="activeMember(account)">
-            ACTIVE
-          </button>
-          <button *ngIf="account.active_state" class="btn btn-danger" (click)="inactiveMember(account)">
-            INACTIVE
-          </button>
-        </td>
+          <button *ngIf="account.active_state" class="btn btn-danger" (click)="inactiveMember(account)">INACTIVE</button>
 
+          <button *ngIf="!account.active_state" class="btn btn-success" (click)="activeMember(account)">ACTIVE</button>
+        </td>
       </tr>
       </tbody>
     </table>

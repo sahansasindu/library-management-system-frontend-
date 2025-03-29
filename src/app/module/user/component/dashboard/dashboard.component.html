@@ -1,64 +1,64 @@
-
 <div class="container mt-5">
-  <h2 class="mb-4">Library Dashboard Overview</h2>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card text-bg-primary mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Total Books Available</h5>
-          <p class="card-text">Fiction: 200 | Non-Fiction: 150 | Reference: 50</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-bg-success mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Issued Books</h5>
-          <p class="card-text">Currently Borrowed: 120</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-bg-danger mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Overdue Books</h5>
-          <p class="card-text">10 books past return date</p>
-        </div>
-      </div>
-    </div>
+  <!-- Welcome Message -->
+  <div class="alert alert-success text-center" role="alert">
+    <h4>Welcome, {{ userFullName }}!</h4>
   </div>
+
+  <h2 class="mb-4">Library Dashboard</h2>
+
   <div class="row">
-    <div class="col-md-4">
+    <!-- Borrowed Books -->
+    <div class="col-md-6">
       <div class="card text-bg-info mb-3">
         <div class="card-body">
-          <h5 class="card-title">New Arrivals</h5>
-          <p class="card-text">Recently added books: 30</p>
+          <h5 class="card-title">Books Borrowed</h5>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let book of borrowedBooks">
+              {{ book.title }} - Due Date: {{ book.dueDate }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card text-bg-warning mb-3">
+
+    <!-- Pending Requests -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
         <div class="card-body">
-          <h5 class="card-title">Registered Users</h5>
-          <p class="card-text">Total Members: 500</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-bg-secondary mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Book Requests/Pending Approvals</h5>
-          <p class="card-text">Pending approvals: 15</p>
+          <h5 class="card-title">Pending Requests</h5>
+          <p *ngIf="pendingRequests.length === 0">No pending requests.</p>
+          <ul class="list-group" *ngIf="pendingRequests.length > 0">
+            <li class="list-group-item" *ngFor="let request of pendingRequests">
+              {{ request.title }} - Status: {{ request.status }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+
   <div class="row">
-    <div class="col-md-12">
-      <div class="card text-bg-dark mb-3">
+    <!-- Available Books -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
         <div class="card-body">
-          <h5 class="card-title">Notifications & Alerts</h5>
-          <p class="card-text">Due date reminders, fine notices, and book returns.</p>
+          <h5 class="card-title">Available Books</h5>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let book of availableBooks">
+              {{ book.title }} - {{ book.category }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fines -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Fines</h5>
+          <p *ngIf="fineAmount === 0">No outstanding fines.</p>
+          <p *ngIf="fineAmount > 0">You have a fine of Rs. {{ fineAmount }}</p>
         </div>
       </div>
     </div>

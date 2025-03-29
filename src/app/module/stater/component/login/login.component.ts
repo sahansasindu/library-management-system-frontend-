@@ -24,25 +24,30 @@ export class LoginComponent {
 
 
   login(loginForm: NgForm) {
-
-
     console.log(loginForm.value);
     this.userService.login(loginForm.value).subscribe(
       (response: any) => {
         console.log(response.token);
         console.log(response.role);
 
-        this.userAuthService.setRoles(response.role);  // Store roles correctly
-        this.userAuthService.setToken(response.token);// Fix: Call setToken, not getToken
+        // Extract first and last name
+        const firstName = response.id.first_name;
+        const lastName = response.id.last_name;
+        const fullName = `${firstName} ${lastName}`;
+
+
+
+        this.userAuthService.setRoles(response.role);
+        this.userAuthService.setToken(response.token);
         const  role=response.role;
-        if(role==='ADMIN'){
 
-          this.router.navigate(['/admin'])
-
-        }else{
-          this.router.navigate(['/user'])
+        if (role === 'ADMIN') {
+          this.router.navigate(['/admin'], { state: { user: fullName } });
+        } else {
+          this.router.navigate(['/user'], { state: { user: fullName } });
         }
-        alert("Login Successful!");
+        alert(`Login Successful! Welcome, ${fullName}`);
+
       },
       (error) => {
         console.error("Login failed:", error);

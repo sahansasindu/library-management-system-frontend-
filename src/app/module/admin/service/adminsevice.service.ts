@@ -109,5 +109,15 @@ export class AdminseviceService {
   }
 
 
+  // Method to update user state
+  public updateUserState(memberId: string, activeState: boolean): Observable<any> {
+    const body = { active_state: activeState };
+    return this.httpClient.put(`${this.Admin_URL}/${memberId}`, body, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+
 
 }

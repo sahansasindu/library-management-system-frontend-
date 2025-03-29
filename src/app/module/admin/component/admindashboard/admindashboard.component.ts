@@ -7,4 +7,22 @@ import { Component } from '@angular/core';
 })
 export class AdmindashboardComponent {
 
+  userFullName: any | null = 'Admin'; // Default if name not found
+
+  constructor() {
+    const navigation = window.history.state;
+
+
+    if (navigation.user) {
+      this.userFullName = navigation.user;
+
+      localStorage.setItem('userFullName', this.userFullName);
+    } else {
+
+      this.userFullName = localStorage.getItem('userFullName') || 'Admin';
+    }
+
+    console.log('User:', this.userFullName);
+  }
+
 }
