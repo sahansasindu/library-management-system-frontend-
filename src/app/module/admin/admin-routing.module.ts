@@ -5,6 +5,8 @@ import {AdmindashboardComponent} from "./component/admindashboard/admindashboard
 import {AdduserComponent} from "./component/adduser/adduser.component";
 import {AddbookComponent} from "./component/addbook/addbook.component";
 import {ManageprofileComponent} from "./component/manageprofile/manageprofile.component";
+import {BookCiculationComponent} from "./component/book-ciculation/book-ciculation.component";
+import {FeesManagementComponent} from "./component/fees-management/fees-management.component";
 
 const routes: Routes = [{ path: '', component: AdminComponent,children:[
     {path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
@@ -12,6 +14,8 @@ const routes: Routes = [{ path: '', component: AdminComponent,children:[
     {path:'adduser',component:AdduserComponent},
     {path:'addbook',component:AddbookComponent},
     {path:'manageprofile',component:ManageprofileComponent},
+    {path:'bookcirculation',component:BookCiculationComponent},
+    {path:'managefees',component:FeesManagementComponent}
   ]
 }];
 

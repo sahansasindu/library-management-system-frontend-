@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">FEES MANAGEMENT</a>
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <button class="btn btn-outline-primary" (click)="addfees()">Add Fees</button>
+        <button class="btn btn-outline-secondary" (click)="displayfees()">Display Fees</button>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<!-- Display Fees -->
+<div class="container mt-5" *ngIf="viewMode === 'displayfees'">
+  <h2 class="mb-4">Fee Information</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Entry Payment</th>
+      <th>Penalty Cost</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let fee of feeData">
+      <td>{{ fee.entry_payment }}</td>
+      <td>{{ fee.penalty_cost }}</td>
+      <td>
+        <button class="btn btn-warning" (click)="updatefees(feeData)">Edit</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Fees -->
+<div class="container mt-5" *ngIf="viewMode === 'addfees'">
+  <h2 class="mb-4">Add Fee Information</h2>
+  <form (ngSubmit)="addFee()">
+    <div class="mb-3">
+      <label for="entryPayment" class="form-label">Entry Payment</label>
+      <input type="number" class="form-control" id="entryPayment" [(ngModel)]="newFee.entry_payment" name="entry_payment" required>
+    </div>
+    <div class="mb-3">
+      <label for="penaltyCost" class="form-label">Penalty Cost</label>
+      <input type="number" class="form-control" id="penaltyCost" [(ngModel)]="newFee.penalty_cost" name="penalty_cost" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Fee</button>
+  </form>
+</div>

@@ -1,36 +1,59 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {UserserviceService} from "../../../stater/service/userservice.service";
-import {Router} from "@angular/router";
 import {AdminseviceService} from "../../service/adminsevice.service";
 @Component({
   selector: 'app-adduser',
   templateUrl: './adduser.component.html',
   styleUrl: './adduser.component.scss'
 })
-export class AdduserComponent {
+export class AdduserComponent implements OnInit{
 
+  viewMode: string = 'showmember'; // Toggle between Add Book & Display Books
 
+  getmembers: any[] = [];
+  getaccount: any[] = [];
 
   constructor(private adminService: AdminseviceService) {}
 
 
+  ngOnInit() {
+  this.fetchMemberDetails();
+  this.getUserAccountDetails();
 
-  members = [
-    { memberid: 'LB0001', email: 'user1@example.com', password: 'pass123', role: 'ADMIN' },
-    { memberid: 'LB0002', email: 'user2@example.com', password: 'pass456', role: 'USER' },
-    { memberid: 'LB0003', email: 'user3@example.com', password: 'pass789', role: 'USER' },
-    { memberid: 'LB0004', email: 'admin1@example.com', password: 'password123', role: 'ADMIN' }
-  ];
+  }
+
+  fetchMemberDetails(){
+    this.adminService.getMemberDetails().subscribe((response: any) => {
+        console.log("Issued Books API Response:", response);
+        if (response && response.data && Array.isArray(response.data)) {
+          this.getmembers = response.data;
+        } else {
+          this.getmembers = [];
+        }
+        console.log("Formatted Data:", this.getmembers);
+      },
+      (error) => {
+        console.error("Error fetching members:", error);
+        this.getmembers = [];
+      });
+  }
+
+
 
   editMember(member: any) {
     console.log('Edit Member:', member);
   }
 
-  deleteMember(memberid: any) {
-    this.members = this.members.filter(member => member.memberid !== memberid);
-    console.log('Deleted Member ID:', memberid);
+  activeMember(account: any) {
+    this.updateUserStatus(account.memberid, true);
+    this.ManageProfile();
   }
+
+  inactiveMember(account: any) {
+    this.updateUserStatus(account.memberid, false);
+    this.ManageProfile();
+  }
+
 
   // Add a new member functionality
   AddUser(AddUserForm: NgForm) {
@@ -48,7 +71,54 @@ export class AdduserComponent {
     );
   }
 
+
+  getUserAccountDetails() {
+    this.adminService.getUserAccountDetails().subscribe(
+      (response: any) => {
+        console.log("User Account Details API Response:", response);
+        if (response && response.data && Array.isArray(response.data)) {
+          this.getaccount = response.data;
+        } else {
+          this.getaccount = [];
+        }
+      },
+      (error) => {
+        console.error("Error fetching user account details:", error);
+        this.getaccount = [];
+      }
+    );
   }
+
+
+  updateUserStatus(memberId: string, newState: boolean) {
+    this.adminService.updateUserState(memberId, newState).subscribe(
+      response => {
+        console.log('Update Successful:', response);
+        alert('User state updated successfully');
+      },
+      error => {
+        console.error('Update Failed:', error);
+        alert('Failed to update user state');
+      }
+    );
+  }
+
+
+
+
+  showAddUser() {
+
+    this.viewMode = 'addmember';
+  }
+
+  showMemberList() {
+    this.viewMode = 'showmember';
+  }
+
+  ManageProfile() {
+    this.viewMode = 'manageprofile';
+  }
+}
 
 
 

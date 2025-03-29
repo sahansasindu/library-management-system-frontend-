@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserAuthService} from "../../../service/user-auth.service";
 import {Injectable} from "@angular/core";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,13 +42,82 @@ export class AdminseviceService {
   }
 
 
-
   public toggle(): void {
     this.openedSubject.next(!this.openedSubject.value);
   }
 
-  public addMember(){
 
+  public borrowBook(issueData: any): Observable<any> {
+    return this.httpClient.post(`${this.BASE_URL}/borrowbookrecoard`, issueData, {
+      headers: this.getAuthHeaders()
+    });
   }
+
+
+  public returnBook(returnData: any): Observable<any> {
+    return this.httpClient.post(`${this.BASE_URL}/returnbook`, returnData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  public getReservedBooks(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/reservationdetails`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
+  public getIssuedBooks(): Observable<any> {
+    return this.httpClient.get<any>(`${this.BASE_URL}/issueBookdetails`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
+  public getReturnedBooks(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/returnbookdetails`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public getMemberDetails():Observable<any[]>{
+    return this.httpClient.get<any[]>(`${this.Admin_URL}/getallmembers`, {
+      headers:this.getAuthHeaders(),
+    });
+  }
+
+
+  public addFeeInformation(conditionData: any): Observable<any> {
+    return this.httpClient.post(`${this.Admin_URL}/addinformation`, conditionData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  public getFeeInformation(): Observable<any> {
+    return this.httpClient.get(`${this.Admin_URL}/getinformation`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  public getUserAccountDetails(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.Admin_URL}/getuseraccount`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
+  // Method to update user state
+  public updateUserState(memberId: string, activeState: boolean): Observable<any> {
+    const body = { active_state: activeState };
+    return this.httpClient.put(`${this.Admin_URL}/${memberId}`, body, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+
 
 }

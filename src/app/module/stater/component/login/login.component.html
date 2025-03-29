@@ -1,23 +1,38 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-4">
-      <div class="card shadow-lg p-4">
-        <h2 class="text-center mb-4">Login</h2>
+<div class="container d-flex justify-content-center align-items-center vh-95">
+  <div class="login-container shadow-lg rounded-4">
+    <div class="row g-0">
+      <!-- Left Side: Login Form -->
+      <div class="col-md-6 d-flex flex-column justify-content-center p-5">
+        <h2 class="text-primary text-center fw-bold">Log In</h2>
+        <p class="text-center text-muted">Welcome back! Please enter your details</p>
+
         <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
           <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label fw-semibold">Email</label>
             <input type="email" class="form-control" id="email" ngModel name="email" required />
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label fw-semibold">Password</label>
             <input type="password" class="form-control" id="password" ngModel name="password" required />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <div class="text-end mb-3">
+            <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">Log In</button>
         </form>
-        <p class="text-center mt-3">
-          Don't have an account? <a routerLink="/stater/register">Register</a>
+
+
+        <p class="text-center mt-4">
+          Don't have an account? <a routerLink="/stater/register" class="text-primary fw-semibold">Sign up</a>
         </p>
+      </div>
+
+      <!-- Right Side: Image -->
+      <div class="col-md-6 d-none d-md-block login-image">
+        <img src="/assets/images/books.jpg" alt="Login Image" class="img-fluid rounded-end-4">
       </div>
     </div>
   </div>
 </div>
+
+

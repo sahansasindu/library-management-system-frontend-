@@ -30,8 +30,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatListItem,
     MatIcon,
     MatDrawer,
-    MatSidenavModule,  // Correct import for mat-drawer, mat-drawer-content, and mat-drawer-container
-    MatListModule,      // Correct import for mat-list and mat-list-item
+    MatSidenavModule,
+    MatListModule,
     MatIconModule,
     HttpClientModule
   ],

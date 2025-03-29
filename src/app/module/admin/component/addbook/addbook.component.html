@@ -62,8 +62,8 @@
             <p class="card-text"><strong>Category:</strong> {{ book.category }}</p>
             <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
             <p class="card-text"><strong>Quantity:</strong> {{ book.qty }}</p>
-            <button class="btn btn-success btn-sm" (click)="reserveBook(book)" *ngIf="!book.reserved">Reserve</button>
-            <button class="btn btn-warning btn-sm" (click)="closeReservation(book)" *ngIf="book.reserved">Close Reservation</button>
+            <button class="btn btn-success btn-sm" (click)="reserveBook(book)" *ngIf="!book.reserved">Freeze</button>
+            <button class="btn btn-warning btn-sm" (click)="closeReservation(book)" *ngIf="book.reserved">Unfreeze</button>
           </div>
         </div>
       </div>

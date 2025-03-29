@@ -1,1 +1,66 @@
-<p>dashboard works!</p>
+<div class="container mt-5">
+  <!-- Welcome Message -->
+  <div class="alert alert-success text-center" role="alert">
+    <h4>Welcome, {{ userFullName }}!</h4>
+  </div>
+
+  <h2 class="mb-4">Library Dashboard</h2>
+
+  <div class="row">
+    <!-- Borrowed Books -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Books Borrowed</h5>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let book of borrowedBooks">
+              {{ book.title }} - Due Date: {{ book.dueDate }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pending Requests -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Pending Requests</h5>
+          <p *ngIf="pendingRequests.length === 0">No pending requests.</p>
+          <ul class="list-group" *ngIf="pendingRequests.length > 0">
+            <li class="list-group-item" *ngFor="let request of pendingRequests">
+              {{ request.title }} - Status: {{ request.status }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Available Books -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Available Books</h5>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let book of availableBooks">
+              {{ book.title }} - {{ book.category }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fines -->
+    <div class="col-md-6">
+      <div class="card text-bg-info mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Fines</h5>
+          <p *ngIf="fineAmount === 0">No outstanding fines.</p>
+          <p *ngIf="fineAmount > 0">You have a fine of Rs. {{ fineAmount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StaterheaderComponent } from './staterheader.component';
+import { BookCiculationComponent } from './book-ciculation.component';
 
-describe('StaterheaderComponent', () => {
-  let component: StaterheaderComponent;
-  let fixture: ComponentFixture<StaterheaderComponent>;
+describe('BookCiculationComponent', () => {
+  let component: BookCiculationComponent;
+  let fixture: ComponentFixture<BookCiculationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StaterheaderComponent]
+      declarations: [BookCiculationComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(StaterheaderComponent);
+    fixture = TestBed.createComponent(BookCiculationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
