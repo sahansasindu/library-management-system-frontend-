@@ -28,11 +28,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let member of members">
-      <td>{{ member.memberid }}</td>
-      <td>{{ member.email }}</td>
-      <td>{{ member.password }}</td>
-      <td>{{ member.role }}</td>
+    <tr *ngFor="let member of getmembers">
+      <td>{{ member.member_id }}</td>
+      <td>{{ member.first_name }}</td>
+      <td>{{ member.last_name }}</td>
+      <td>{{ member.address }}</td>
+      <td>{{ member.dob}}</td>
+      <td>{{ member.nic_no }}</td>
+      <td>{{ member.phone_no }}</td>
+
       <td>
         <button class="btn btn-warning" (click)="editMember(member)">Edit</button>
       </td>
@@ -101,14 +105,20 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let member of members">
-        <td>{{ member.memberid }}</td>
-        <td>{{ member.email }}</td>
-        <td>{{ member.password }}</td>
-        <td>{{ member.role }}</td>
+      <tr *ngFor="let account of getaccount">
+        <td>{{ account.memberid }}</td>
+        <td>{{ account.email }}</td>
+        <td>{{ account.role }}</td>
+        <td>{{ account.active_state }}</td>
         <td>
-          <button class="btn btn-danger" (click)="deleteMember(member.memberid)">Delete</button>
+          <button *ngIf="!account.active_state" class="btn btn-success" (click)="activeMember(account)">
+            ACTIVE
+          </button>
+          <button *ngIf="account.active_state" class="btn btn-danger" (click)="inactiveMember(account)">
+            INACTIVE
+          </button>
         </td>
+
       </tr>
       </tbody>
     </table>

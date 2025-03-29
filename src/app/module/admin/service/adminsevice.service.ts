@@ -102,4 +102,12 @@ export class AdminseviceService {
   }
 
 
+  public getUserAccountDetails(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.Admin_URL}/getuseraccount`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
+
 }
