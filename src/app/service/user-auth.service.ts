@@ -15,25 +15,30 @@ export class UserAuthService {
     return JSON.parse(<string>localStorage.getItem('roles'));
   }
 
-  public setToken(jwtToken:string){
-    localStorage.setItem("token",jwtToken);
+  public setToken(key:any,jwtToken:any){
+    localStorage.setItem(key,jwtToken);
   }
 
   public getToken(): String {
     return <String>localStorage.getItem('token'); // Correct key
   }
 
-
-
   public clear(){
     localStorage.clear();
   }
-
 
   public isLoggedIn(){
 
     return this.getRoles() && this.getToken();
 
+  }
+
+  public isExists(key:any):boolean{
+    let token=localStorage.getItem(key);
+    if(token){
+      return true;
+    }
+    return false;
   }
 
 
