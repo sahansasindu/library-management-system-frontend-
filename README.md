@@ -7,5 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Ensure you have the following installed before proceeding:<br>
 1 Install Dependencies</br>
 Run the following command to install all required packages from package.json:<br>
-npm install
+npm install<br>
+2 Start the Development Server<br>
+Once installation is complete, you can start the Angular application:
 
