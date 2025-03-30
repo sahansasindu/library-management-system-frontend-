@@ -14,3 +14,4 @@ ng serve<br>
 This will start the Angular development server, usually on http://localhost:4200/.
 
 
+![Screenshot 2025-03-30 231606](https://github.com/user-attachments/assets/8a706c97-6546-44b4-928e-c8e55faf6018)
