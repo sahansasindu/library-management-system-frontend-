@@ -9,7 +9,7 @@ Ensure you have the following installed before proceeding:<br>
 Run the following command to install all required packages from package.json:<br>
 npm install<br>
 2 Start the Development Server<br>
-Once installation is complete, you can start the Angular application:
+Once installation is complete, you can start the Angular application:<br>
 ng serve<br>
 This will start the Angular development server, usually on http://localhost:4200/.
 
