@@ -11,29 +11,31 @@
 
       <mat-list-item [routerLinkActive]="['active']">
         <mat-icon color="primary" mat-list-icon>adduser</mat-icon>
-        <a routerLink="adduser" mat-line>Adduser</a>
+        <a routerLink="adduser" mat-line>Add user</a>
       </mat-list-item>
       <mat-list-item [routerLinkActive]="['active']">
         <mat-icon color="primary" mat-list-icon>book</mat-icon>
         <a routerLink="addbook" mat-line>Manage Book</a>
       </mat-list-item>
       <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>addbook</mat-icon>
+        <mat-icon color="primary" mat-list-icon>library_add_check</mat-icon>
         <a routerLink="bookcirculation" mat-line>Circulation</a>
       </mat-list-item>
       <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>fees</mat-icon>
+        <mat-icon color="primary" mat-list-icon>request_quote</mat-icon>
         <a routerLink="managefees" mat-line>Fees Management</a>
       </mat-list-item>
       <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>profile</mat-icon>
+        <mat-icon color="primary" mat-list-icon>manage_accounts</mat-icon>
         <a routerLink="manageprofile" mat-line>Profile</a>
       </mat-list-item>
 
-      <mat-list-item [routerLinkActive]="['active']">
+      <mat-list-item (click)="logout()">
         <mat-icon color="primary" mat-list-icon>logout</mat-icon>
-        <a routerLink="" mat-line>Logout</a>
+        <a>Logout</a>
       </mat-list-item>
+
+
 
     </mat-list>
   </mat-drawer>

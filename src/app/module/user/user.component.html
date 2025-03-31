@@ -11,15 +11,15 @@
 
       <mat-list-item [routerLinkActive]="['active']">
         <mat-icon color="primary" mat-list-icon>book</mat-icon>
-        <a routerLink="reservation" mat-line>Book</a>
+        <a routerLink="reservation" mat-line>Reservation</a>
       </mat-list-item>
       <mat-list-item [routerLinkActive]="['active']">
         <mat-icon color="primary" mat-list-icon>profile</mat-icon>
         <a routerLink="manageuserprofile" mat-line>Manage profile</a>
       </mat-list-item>
-      <mat-list-item [routerLinkActive]="['active']">
+      <mat-list-item (click)="logout()">
         <mat-icon color="primary" mat-list-icon>logout</mat-icon>
-        <a routerLink="" mat-line>Logout</a>
+        <a>Logout</a>
       </mat-list-item>
 
 

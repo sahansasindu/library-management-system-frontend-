@@ -29,6 +29,7 @@ export class AddbookComponent implements OnInit {
   }
 
   // Method to get books from the backend
+  searchText: any;
   getBooks() {
     this.adminService.getAllBooks().subscribe((books: any[]) => {
       this.bookList = books.map(book => ({

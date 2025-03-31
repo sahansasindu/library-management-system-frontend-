@@ -10,6 +10,7 @@ import {MatDrawer, MatDrawerContainer, MatSidenavModule} from "@angular/material
 import {MatList, MatListItem} from "@angular/material/list";
 import { BookresavationComponent } from './component/bookresavation/bookresavation.component';
 import { ManageuserprofileComponent } from './component/manageuserprofile/manageuserprofile.component';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -25,17 +26,18 @@ import { ManageuserprofileComponent } from './component/manageuserprofile/manage
 
 
   ],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    MatIcon,
-    MatDrawerContainer,
-    MatList,
-    MatListItem,
-    MatDrawer,
-    MatSidenavModule,
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        MatIcon,
+        MatDrawerContainer,
+        MatList,
+        MatListItem,
+        MatDrawer,
+        MatSidenavModule,
+        FormsModule,
 
 
-  ]
+    ]
 })
 export class UserModule { }

@@ -1,0 +1,42 @@
+.card {
+  width: 80%;
+  height: 370px; /* Reduced height for better fit */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-image {
+  object-fit: contain; /* Ensures image covers the area without distortion */
+  height: 160px; /* Reduced height for images */
+  width: 100%; /* Ensure the image takes full width of the card */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+}
+
+.card-text {
+  font-size: 0.85rem;
+  margin-bottom: 3px;
+}
+
+.btn-sm {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}

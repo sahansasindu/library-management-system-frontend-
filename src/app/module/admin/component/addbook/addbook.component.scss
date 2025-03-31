@@ -1,13 +1,24 @@
 .card {
   width: 100%;
-  height: 420px; /* Fixed height for the card */
+  height: 375px; /* Adjusted card height */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .book-image {
-  object-fit: cover; /* Ensures image covers the area without distortion */
-  height: 200px; /* Fixed height for images */
-  width: 100%; /* Ensure the image takes full width of the card */
+  object-fit: contain;
+  height: 150px; /* Reduced image height */
+  width: 100%;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Allow content to take available space */
+}
+
+.button-container {
+  margin-top: auto; /* Push buttons to the bottom */
 }
