@@ -18,6 +18,9 @@ This will start the Angular development server, usually on http://localhost:4200
 
 ![Screenshot 2025-03-30 231617](https://github.com/user-attachments/assets/5518a82b-df44-4b80-9967-bfe22a531be4)
 
+![Screenshot 2025-03-31 171552](https://github.com/user-attachments/assets/38e78edd-d97d-47e1-8868-74fd9ffb6806)
+
+
 ![Screenshot 2025-03-30 232748](https://github.com/user-attachments/assets/de0a6e57-97d8-41cb-a45b-7577a0d2fd13)
 
 ![Screenshot 2025-03-30 231747](https://github.com/user-attachments/assets/b6278605-3017-4e2f-aade-77d3db468f4a)
