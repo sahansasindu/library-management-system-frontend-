@@ -2,27 +2,27 @@
 
 <mat-drawer-container class="example-container" autosize>
 
-  <mat-drawer [opened]="opened" class="example-sidenav" mode="side">
-    <mat-list>
-      <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>dashboard</mat-icon>
+  <mat-drawer [opened]="opened" class="user-sidebar" mode="side">
+    <mat-list class="user-sidebar-list">
+      <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
         <a routerLink="dashboard" mat-line>Dashboard</a>
       </mat-list-item>
 
-      <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>book</mat-icon>
-        <a routerLink="reservation" mat-line>Book</a>
+      <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+        <mat-icon mat-list-icon>library_books</mat-icon>
+        <a routerLink="reservation" mat-line>Books & Reservations</a>
       </mat-list-item>
-      <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>profile</mat-icon>
-        <a routerLink="manageuserprofile" mat-line>Manage profile</a>
+
+      <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+        <mat-icon mat-list-icon>manage_accounts</mat-icon>
+        <a routerLink="manageuserprofile" mat-line>Manage Profile</a>
       </mat-list-item>
-      <mat-list-item [routerLinkActive]="['active']">
-        <mat-icon color="primary" mat-list-icon>logout</mat-icon>
+
+      <mat-list-item [routerLinkActive]="['active']" class="nav-item logout-item">
+        <mat-icon mat-list-icon>logout</mat-icon>
         <a routerLink="" mat-line>Logout</a>
       </mat-list-item>
-
-
     </mat-list>
   </mat-drawer>
 
@@ -33,3 +33,5 @@
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
+
+<app-ai-assistant></app-ai-assistant>

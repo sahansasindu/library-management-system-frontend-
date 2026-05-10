@@ -1,1 +1,71 @@
-<p>bookresavation works!</p>
+<div class="reservation-container">
+  <div class="page-header">
+    <div class="title-section">
+      <h1>Explore Our Library</h1>
+      <p>Discover and reserve your next favorite book</p>
+    </div>
+    
+    <div class="search-section">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input 
+          type="text" 
+          [(ngModel)]="searchText" 
+          (input)="onSearch()" 
+          placeholder="Search by title, author, or category...">
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-overlay" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div class="books-grid" *ngIf="!isLoading">
+    <div class="book-card" *ngFor="let book of books">
+      <div class="book-image">
+        <img [src]="book.photoBase64" alt="{{book.title}}" *ngIf="book.photoBase64">
+        <div class="no-image" *ngIf="!book.photoBase64">
+          <mat-icon>book</mat-icon>
+        </div>
+        <div class="availability-badge" [class.low-stock]="book.qty < 3">
+          {{book.qty}} available
+        </div>
+      </div>
+      
+      <div class="book-details">
+        <div class="category">{{book.category}}</div>
+        <h3 class="book-title">{{book.title}}</h3>
+        <p class="author">By {{book.author}}</p>
+        <p class="isbn">ISBN: {{book.isbn}}</p>
+      </div>
+      
+      <div class="card-footer">
+        <button 
+          mat-flat-button 
+          color="primary" 
+          class="reserve-btn" 
+          [disabled]="book.qty <= 0"
+          (click)="reserveBook(book.bookid)">
+          <mat-icon>bookmark_add</mat-icon>
+          Reserve Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-results" *ngIf="!isLoading && books.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <p>No books found matching your search.</p>
+  </div>
+
+  <div class="pagination-container">
+    <mat-paginator 
+      [length]="totalItems"
+      [pageSize]="size"
+      [pageSizeOptions]="[4, 8, 12, 24]"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

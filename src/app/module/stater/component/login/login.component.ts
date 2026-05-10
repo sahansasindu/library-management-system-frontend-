@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
-import {NgForm} from "@angular/forms";
-import {UserserviceService} from "../../service/userservice.service";
-import {UserAuthService} from "../../../../service/user-auth.service";
+import { NgForm } from "@angular/forms";
+import { UserserviceService } from "../../service/userservice.service";
+import { UserAuthService } from "../../../../service/user-auth.service";
 
 
 
@@ -16,9 +16,9 @@ import {UserAuthService} from "../../../../service/user-auth.service";
 })
 export class LoginComponent {
 
-  constructor(private userService:UserserviceService,
-              private userAuthService:UserAuthService,
-              private router:Router) {
+  constructor(private userService: UserserviceService,
+    private userAuthService: UserAuthService,
+    private router: Router) {
   }
 
 
@@ -30,16 +30,14 @@ export class LoginComponent {
         console.log(response.token);
         console.log(response.role);
 
-        // Extract first and last name
         const firstName = response.id.first_name;
         const lastName = response.id.last_name;
         const fullName = `${firstName} ${lastName}`;
 
 
-
         this.userAuthService.setRoles(response.role);
-        this.userAuthService.setToken('access_token',response.token);
-        const  role=response.role;
+        this.userAuthService.setToken('access_token', response.token);
+        const role = response.role;
 
         if (role === 'ADMIN') {
           this.router.navigate(['/admin'], { state: { user: fullName } });

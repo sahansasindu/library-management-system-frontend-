@@ -6,7 +6,7 @@ import {AdduserComponent} from "./component/adduser/adduser.component";
 import {AddbookComponent} from "./component/addbook/addbook.component";
 import {ManageprofileComponent} from "./component/manageprofile/manageprofile.component";
 import {BookCiculationComponent} from "./component/book-ciculation/book-ciculation.component";
-import {FeesManagementComponent} from "./component/fees-management/fees-management.component";
+
 import {authGuard} from "../../guard/auth.guard";
 
 const routes: Routes = [{ path: '', component: AdminComponent,children:[
@@ -16,7 +16,7 @@ const routes: Routes = [{ path: '', component: AdminComponent,children:[
     {path:'addbook',component:AddbookComponent,canActivate:[authGuard]},
     {path:'manageprofile',component:ManageprofileComponent,canActivate:[authGuard]},
     {path:'bookcirculation',component:BookCiculationComponent,canActivate:[authGuard]},
-    {path:'managefees',component:FeesManagementComponent,canActivate:[authGuard]}
+
   ]
 }];
 

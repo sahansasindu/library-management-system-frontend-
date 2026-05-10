@@ -1,48 +1,58 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserAuthService {
 
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
-  public setRoles(roles:[]){
-    localStorage.setItem('roles',JSON.stringify(roles))
+  public setRoles(roles: any[]) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('roles', JSON.stringify(roles));
+    }
   }
 
-  public getRoles():[]{
-    return JSON.parse(<string>localStorage.getItem('roles'));
+  public getRoles(): any[] | null {
+    if (isPlatformBrowser(this.platformId)) {
+      const roles = localStorage.getItem('roles');
+      return roles ? JSON.parse(roles) : null;
+    }
+    return null;
   }
 
-  public setToken(key:any,jwtToken:any){
-    localStorage.setItem(key,jwtToken);
+  public setToken(key: any, jwtToken: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(key, jwtToken);
+    }
   }
 
-  public getToken(): String {
-    return <String>localStorage.getItem('token'); // Correct key
+  public getToken(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('access_token') || '';
+    }
+    return '';
   }
 
-  public clear(){
-    localStorage.clear();
+  public clear() {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
   }
 
-  public isLoggedIn(){
-
+  public isLoggedIn() {
     return this.getRoles() && this.getToken();
-
   }
 
-  public isExists(key:any):boolean{
-    let token=localStorage.getItem(key);
-    if(token){
-      return true;
+  public isExists(key: any): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      let token = localStorage.getItem(key);
+      if (token) {
+        return true;
+      }
     }
     return false;
   }
-
-
-
-
 }
 

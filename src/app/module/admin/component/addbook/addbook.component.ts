@@ -8,10 +8,10 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./addbook.component.scss']
 })
 export class AddbookComponent implements OnInit {
-  isAddBookVisible = true; // Toggle between Add Book & Display Books
+  isAddBookVisible = true;
 
   book = {
-    bookid:'',
+    bookid: '',
     title: '',
     author: '',
     isbn: '',
@@ -19,34 +19,70 @@ export class AddbookComponent implements OnInit {
     qty: 0
   };
 
-  bookList: any[] = []; // List to hold fetched books
-  selectedFile: File | null = null; // Store selected file
+  bookList: any[] = [];
+  selectedFile: File | null = null;
 
-  constructor(private adminService: AdminseviceService) {}
+  // Pagination and Search state
+  page: number = 0;
+  size: number = 5;
+  searchText: string = '';
+  totalBooks: number = 0;
+
+
+  constructor(private adminService: AdminseviceService) { }
 
   ngOnInit() {
-    this.getBooks(); // Fetch books when component initializes
+    this.getBooks();
   }
 
-  // Method to get books from the backend
   getBooks() {
-    this.adminService.getAllBooks().subscribe((books: any[]) => {
-      this.bookList = books.map(book => ({
-        ...book,
-        photoBase64: book.photoBase64 || 'assets/default-book.png' // Fallback for missing images
-      }));
+    this.adminService.getAllBooks(this.page, this.size, this.searchText).subscribe((response: any) => {
+      console.log("Books API Response:", response);
+      if (response && response.data) {
+        const books = response.data.dataList || [];
+        this.totalBooks = response.data.dataCount || 0;
+        this.bookList = books.map((book: any) => ({
+          ...book,
+          photoBase64: book.photoBase64 || 'assets/default-book.png'
+        }));
+      } else {
+        this.bookList = [];
+        this.totalBooks = 0;
+      }
     }, error => {
       console.error("Error fetching books:", error);
     });
   }
 
+  onSearchChange() {
+    this.page = 0;
+    this.getBooks();
+  }
+
+  nextPage() {
+    if ((this.page + 1) * this.size < this.totalBooks) {
+      this.page++;
+      this.getBooks();
+    }
+  }
+
+  previousPage() {
+    if (this.page > 0) {
+      this.page--;
+      this.getBooks();
+    }
+  }
+
+
   onSubmit(form: NgForm) {
     this.adminService.addBook(this.book, this.selectedFile).subscribe(response => {
       console.log("Book Added Successfully:", response);
-      this.bookList.push(response); // Use response from backend
+      alert('Book added successfully!');
+      this.bookList.push(response);
       form.reset();
     }, error => {
       console.error("Error Adding Book:", error);
+      alert('Failed to add book. Please try again.');
     });
   }
 
@@ -62,17 +98,14 @@ export class AddbookComponent implements OnInit {
     this.isAddBookVisible = false;
   }
 
-
   reserveBook(book: any) {
-    // Mark the book as reserved
-    book.reserved = true;
 
+    book.reserved = true;
   }
 
   closeReservation(book: any) {
-    // Mark the book reservation as closed
-    book.reserved = false;
 
-    // Update the book list locally (assuming backend stores the reservation status)
+    book.reserved = false;
   }
+
 }

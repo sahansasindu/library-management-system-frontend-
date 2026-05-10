@@ -10,6 +10,12 @@ import {MatDrawer, MatDrawerContainer, MatSidenavModule} from "@angular/material
 import {MatList, MatListItem} from "@angular/material/list";
 import { BookresavationComponent } from './component/bookresavation/bookresavation.component';
 import { ManageuserprofileComponent } from './component/manageuserprofile/manageuserprofile.component';
+import { AiAssistantComponent } from './component/ai-assistant/ai-assistant.component';
+import { FormsModule } from "@angular/forms";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatButtonModule } from "@angular/material/button";
 
 
 
@@ -22,6 +28,7 @@ import { ManageuserprofileComponent } from './component/manageuserprofile/manage
     DashboardComponent,
     BookresavationComponent,
     ManageuserprofileComponent,
+    AiAssistantComponent,
 
 
   ],
@@ -34,6 +41,11 @@ import { ManageuserprofileComponent } from './component/manageuserprofile/manage
     MatListItem,
     MatDrawer,
     MatSidenavModule,
+    FormsModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatButtonModule
 
 
   ]

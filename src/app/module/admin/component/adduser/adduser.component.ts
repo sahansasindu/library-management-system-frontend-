@@ -1,43 +1,70 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {AdminseviceService} from "../../service/adminsevice.service";
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
+import { AdminseviceService } from "../../service/adminsevice.service";
 @Component({
   selector: 'app-adduser',
   templateUrl: './adduser.component.html',
   styleUrl: './adduser.component.scss'
 })
-export class AdduserComponent implements OnInit{
+export class AdduserComponent implements OnInit {
 
-  viewMode: string = 'showmember'; // Toggle between Add Book & Display Books
+  viewMode: string = 'showmember';
 
   getmembers: any[] = [];
   getaccount: any[] = [];
 
-  constructor(private adminService: AdminseviceService) {}
+
+  page: number = 0;
+  size: number = 5;
+  searchText: string = '';
+  totalMembers: number = 0;
+
+
+  constructor(private adminService: AdminseviceService) { }
 
 
   ngOnInit() {
-  this.fetchMemberDetails();
-  this.getUserAccountDetails();
+    this.fetchMemberDetails();
+    this.getUserAccountDetails();
 
   }
 
-  fetchMemberDetails(){
-    this.adminService.getMemberDetails().subscribe((response: any) => {
-        console.log("Issued Books API Response:", response);
-        if (response && response.data && Array.isArray(response.data)) {
-          this.getmembers = response.data;
-        } else {
-          this.getmembers = [];
-        }
-        console.log("Formatted Data:", this.getmembers);
-      },
+  fetchMemberDetails() {
+    this.adminService.getMemberDetails(this.page, this.size, this.searchText).subscribe((response: any) => {
+      console.log("Member Details API Response:", response);
+      if (response && response.data) {
+        this.getmembers = response.data.dataList || [];
+        this.totalMembers = response.data.dataCount || 0;
+      } else {
+        this.getmembers = [];
+        this.totalMembers = 0;
+      }
+      console.log("Formatted Data:", this.getmembers);
+    },
       (error) => {
         console.error("Error fetching members:", error);
         this.getmembers = [];
       });
   }
 
+  onSearchChange() {
+    this.page = 0;
+    this.fetchMemberDetails();
+  }
+
+  nextPage() {
+    if ((this.page + 1) * this.size < this.totalMembers) {
+      this.page++;
+      this.fetchMemberDetails();
+    }
+  }
+
+  previousPage() {
+    if (this.page > 0) {
+      this.page--;
+      this.fetchMemberDetails();
+    }
+  }
 
 
   editMember(member: any) {
@@ -55,7 +82,6 @@ export class AdduserComponent implements OnInit{
   }
 
 
-  // Add a new member functionality
   AddUser(AddUserForm: NgForm) {
     console.log(AddUserForm.value);
     const memberData = AddUserForm.value;
@@ -63,10 +89,13 @@ export class AdduserComponent implements OnInit{
     this.adminService.addUserDetails(memberData).subscribe(
       response => {
         console.log('Member added successfully!', response);
-
+        alert('Member added successfully!');
+        AddUserForm.reset();
+        this.fetchMemberDetails(); // Refresh the list
       },
       error => {
         console.error('Error adding member!', error);
+        alert('Failed to add member. Please try again.');
       }
     );
   }

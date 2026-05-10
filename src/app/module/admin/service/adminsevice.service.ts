@@ -1,5 +1,5 @@
 import {BehaviorSubject, Observable} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {UserAuthService} from "../../../service/user-auth.service";
 import {Injectable} from "@angular/core";
 
@@ -29,9 +29,17 @@ export class AdminseviceService {
     return this.httpClient.post(`${this.BASE_URL}/add`, formData, { headers: this.getAuthHeaders() });
   }
 
-  public getAllBooks(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.BASE_URL}/all`);
+  public getAllBooks(page: number, size: number, searchText: string): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('searchText', searchText);
+
+    return this.httpClient.get<any>(`${this.BASE_URL}/all`, {
+      params: params
+    });
   }
+
 
 
   // API call to add a member
@@ -81,25 +89,22 @@ export class AdminseviceService {
     });
   }
 
-  public getMemberDetails():Observable<any[]>{
-    return this.httpClient.get<any[]>(`${this.Admin_URL}/getallmembers`, {
-      headers:this.getAuthHeaders(),
+
+  public getMemberDetails(page: number, size: number, searchText: string): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('searchText', searchText);
+
+    return this.httpClient.get<any>(`${this.Admin_URL}/getallmembers`, {
+      headers: this.getAuthHeaders(),
+      params: params
     });
   }
 
 
-  public addFeeInformation(conditionData: any): Observable<any> {
-    return this.httpClient.post(`${this.Admin_URL}/addinformation`, conditionData, {
-      headers: this.getAuthHeaders()
-    });
-  }
 
 
-  public getFeeInformation(): Observable<any> {
-    return this.httpClient.get(`${this.Admin_URL}/getinformation`, {
-      headers: this.getAuthHeaders()
-    });
-  }
 
 
   public getUserAccountDetails(): Observable<any[]> {

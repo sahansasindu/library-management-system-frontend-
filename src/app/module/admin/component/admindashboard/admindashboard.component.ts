@@ -1,28 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-admindashboard',
   templateUrl: './admindashboard.component.html',
   styleUrl: './admindashboard.component.scss'
 })
-export class AdmindashboardComponent {
+export class AdmindashboardComponent implements OnInit {
 
-  userFullName: any | null = 'Admin'; // Default if name not found
+  userFullName: string | null = 'Admin'; // Default if name not found
 
-  constructor() {
-    const navigation = window.history.state;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const navigation = window.history.state;
 
-    if (navigation.user) {
-      this.userFullName = navigation.user;
-
-      localStorage.setItem('userFullName', this.userFullName);
-    } else {
-
-      this.userFullName = localStorage.getItem('userFullName') || 'Admin';
+      if (navigation && navigation.user) {
+        this.userFullName = navigation.user;
+        localStorage.setItem('userFullName', this.userFullName!);
+      } else {
+        this.userFullName = localStorage.getItem('userFullName') || 'Admin';
+      }
+      console.log('User:', this.userFullName);
     }
-
-    console.log('User:', this.userFullName);
   }
-
 }

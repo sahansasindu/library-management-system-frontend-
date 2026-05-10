@@ -1,27 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  userFullName: any | null = 'User';
+  userFullName: string | null = 'User';
   borrowedBooks: any[] = [];
   pendingRequests: any[] = [];
   availableBooks: any[] = [];
   fineAmount: number = 0;
 
-  constructor() {
-    const navigation = window.history.state;
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-    // Retrieve user's name
-    if (navigation.user) {
-      this.userFullName = navigation.user;
-      localStorage.setItem('userFullName', this.userFullName);
-    } else {
-      this.userFullName = localStorage.getItem('userFullName') || 'User';
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const navigation = window.history.state;
+
+      // Retrieve user's name
+      if (navigation && navigation.user) {
+        this.userFullName = navigation.user;
+        localStorage.setItem('userFullName', this.userFullName!);
+      } else {
+        this.userFullName = localStorage.getItem('userFullName') || 'User';
+      }
     }
 
     // Sample data - This should be fetched from API

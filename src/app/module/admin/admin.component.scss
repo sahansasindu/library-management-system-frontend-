@@ -3,17 +3,32 @@
 }
 
 .mat-drawer {
-  width: 230px;
-  min-width: 200px;
-  padding: 16px;
-  background-color: #9da7b6;
+  width: 250px;
+  min-width: 220px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.02);
   height: 100%;
+}
 
+@media (prefers-color-scheme: dark) {
+  .mat-drawer {
+    background: rgba(15, 23, 42, 0.85);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 mat-drawer-container {
-  position: fixed;
-  height: 89%;
+  flex: 1;
   width: 100%;
   background-color: transparent;
 }

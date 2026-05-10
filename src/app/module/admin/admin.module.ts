@@ -13,7 +13,8 @@ import { AddbookComponent } from './component/addbook/addbook.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ManageprofileComponent } from './component/manageprofile/manageprofile.component';
 import { BookCiculationComponent } from './component/book-ciculation/book-ciculation.component';
-import { FeesManagementComponent } from './component/fees-management/fees-management.component';
+
+import { AdminsidebarComponent } from './component/adminsidebar/adminsidebar.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FeesManagementComponent } from './component/fees-management/fees-manage
     AddbookComponent,
     ManageprofileComponent,
     BookCiculationComponent,
-    FeesManagementComponent,
+
+    AdminsidebarComponent,
 
   ],
   imports: [

@@ -1,0 +1,42 @@
+<div class="ai-assistant-wrapper">
+  <!-- Chat Button -->
+  <button class="chat-toggle-btn" (click)="toggleChat()" [class.open]="isOpen">
+    <mat-icon *ngIf="!isOpen">smart_toy</mat-icon>
+    <mat-icon *ngIf="isOpen">close</mat-icon>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chat-window" [class.show]="isOpen">
+    <div class="chat-header">
+      <mat-icon>auto_awesome</mat-icon>
+      <span>Library AI Assistant</span>
+    </div>
+
+    <div class="chat-body" #chatBody>
+      <div class="message" *ngFor="let msg of chatHistory" [class.user]="msg.role === 'user'" [class.ai]="msg.role === 'ai'">
+        <div class="avatar" *ngIf="msg.role === 'ai'">
+          <mat-icon>bolt</mat-icon>
+        </div>
+        <div class="content">{{ msg.content }}</div>
+      </div>
+      <div class="message ai" *ngIf="isLoading">
+        <div class="avatar"><mat-icon>bolt</mat-icon></div>
+        <div class="content typing">
+          <span>.</span><span>.</span><span>.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <input 
+        type="text" 
+        [(ngModel)]="question" 
+        (keyup.enter)="askQuestion()" 
+        placeholder="Ask about books, authors..."
+        [disabled]="isLoading">
+      <button (click)="askQuestion()" [disabled]="isLoading || !question.trim()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
