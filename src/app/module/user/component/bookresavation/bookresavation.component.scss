@@ -32,11 +32,9 @@
   }
 }
 
-.search-section {
-  /* wrapper handled natively by page-header flex layout */
-}
+.search-section {}
 
-/* Elegant Search Box */
+
 .search-box {
   display: flex;
   align-items: center;
@@ -76,7 +74,7 @@
   }
 }
 
-/* Responsive Rules */
+
 @media (max-width: 768px) {
   .page-header {
     flex-direction: column;

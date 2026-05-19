@@ -48,14 +48,14 @@ export class DashboardComponent implements OnInit {
   isLoading: boolean = true;
   hasError: boolean = false;
 
-  // Tab control
+
   activeTab: 'reserved' | 'issued' | 'returned' = 'reserved';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private userService: UserserviceService,
     private authService: UserAuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
