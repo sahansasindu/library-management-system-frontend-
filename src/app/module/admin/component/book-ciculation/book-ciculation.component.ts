@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminseviceService } from "../../service/adminsevice.service";
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -9,13 +9,13 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./book-ciculation.component.scss'],
   providers: [DatePipe]
 })
-export class BookCiculationComponent implements OnInit{
-  viewMode: string = 'reserved'; // Default view
+export class BookCiculationComponent implements OnInit {
+  viewMode: string = 'reserved';
 
   constructor(
     private adminService: AdminseviceService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   issueBookData = {
     member_id: '',
@@ -40,7 +40,7 @@ export class BookCiculationComponent implements OnInit{
   issueBooks: any[] = [];
   returnBooks: any[] = [];
 
-  // Pagination State
+
   reservedPage = 0;
   reservedSize = 5;
   totalReservedCount = 0;
@@ -72,25 +72,25 @@ export class BookCiculationComponent implements OnInit{
   }
 
 
-   fetchReservedBooks() {
-     this.adminService.getReservedBooks(this.reservedPage, this.reservedSize).subscribe(
-       (response: any) => {
-         console.log("API Response:", response);
-         if (response && response.data) {
-           this.reservedBooks = response.data.dataList || [];
-           this.totalReservedCount = response.data.dataCount || 0;
-         } else {
-           this.reservedBooks = [];
-           this.totalReservedCount = 0;
-         }
-         console.log("Formatted Data:", this.reservedBooks);
-       },
-       (error) => {
-         console.error("Error fetching reserved books:", error);
-         this.reservedBooks = [];
-         this.totalReservedCount = 0;
-       }
-     );
+  fetchReservedBooks() {
+    this.adminService.getReservedBooks(this.reservedPage, this.reservedSize).subscribe(
+      (response: any) => {
+        console.log("API Response:", response);
+        if (response && response.data) {
+          this.reservedBooks = response.data.dataList || [];
+          this.totalReservedCount = response.data.dataCount || 0;
+        } else {
+          this.reservedBooks = [];
+          this.totalReservedCount = 0;
+        }
+        console.log("Formatted Data:", this.reservedBooks);
+      },
+      (error) => {
+        console.error("Error fetching reserved books:", error);
+        this.reservedBooks = [];
+        this.totalReservedCount = 0;
+      }
+    );
   }
 
 
@@ -180,7 +180,7 @@ export class BookCiculationComponent implements OnInit{
   }
 
   editMember(memberId: string) {
-    // Implement edit logic here
+
   }
 
   showIssueBookDetails() {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {UserserviceService} from "../../service/userservice.service";
-import {Router} from "@angular/router";
+import { NgForm } from "@angular/forms";
+import { UserserviceService } from "../../service/userservice.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -11,13 +11,13 @@ import {Router} from "@angular/router";
 export class RegisterComponent {
 
   constructor(private registerUser: UserserviceService,
-              private router:Router) {}
+    private router: Router) { }
 
   Register(RegisterForm: NgForm) {
     if (RegisterForm.valid) {
       const userData = {
-        ...RegisterForm.value, // Get all form values
-        role: 'USER' // Set default role
+        ...RegisterForm.value,
+        role: 'USER'
       };
 
       console.log(userData);

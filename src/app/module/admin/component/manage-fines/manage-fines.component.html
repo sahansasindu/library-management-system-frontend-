@@ -1,5 +1,5 @@
 <div class="admin-fines-wrapper">
-  
+
   <div class="fines-header">
     <div class="header-left">
       <h1>Fine Management</h1>
@@ -8,13 +8,8 @@
     <div class="header-right">
       <div class="search-box">
         <mat-icon class="search-icon">search</mat-icon>
-        <input 
-          type="text" 
-          [(ngModel)]="searchText" 
-          (input)="applyFilters()" 
-          placeholder="Search member, book..." 
-          class="search-input"
-        />
+        <input type="text" [(ngModel)]="searchText" (input)="applyFilters()" placeholder="Search member, book..."
+          class="search-input" />
       </div>
     </div>
   </div>
@@ -31,7 +26,7 @@
   </div>
 
   <div class="error-banner" *ngIf="hasError && !isLoading">
-    <span>⚠️ Could not fetch fines data. Please try again.</span>
+    <span>Could not fetch fines data. Please try again.</span>
     <button (click)="loadFines()">Retry</button>
   </div>
 
@@ -68,14 +63,11 @@
             </td>
             <td>
               <span class="status-badge" [ngClass]="fine.paid ? 'status-paid' : 'status-unpaid'">
-                {{ fine.paid ? '✅ Paid' : '⚠️ Unpaid' }}
+                {{ fine.paid ? 'Paid' : 'Unpaid' }}
               </span>
             </td>
             <td>
-              <button 
-                class="action-btn pay-btn" 
-                *ngIf="!fine.paid" 
-                (click)="markAsPaid(fine)">
+              <button class="action-btn pay-btn" *ngIf="!fine.paid" (click)="markAsPaid(fine)">
                 Mark as Paid
               </button>
               <span *ngIf="fine.paid" class="text-muted">No actions</span>

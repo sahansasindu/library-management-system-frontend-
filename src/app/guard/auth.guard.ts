@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const snackBar = inject(MatSnackBar);
 
   if (authService.isExists('access_token')) {
-    return true; // Allow access
+    return true;
   } else {
     if (isPlatformBrowser(platformId)) {
       snackBar.open("You need to log in first!", 'Close', {
@@ -19,7 +19,7 @@ export const authGuard: CanActivateFn = (route, state) => {
         panelClass: ['error-snackbar']
       });
     }
-    router.navigate(['/login']); // Redirect to login page
+    router.navigate(['/login']);
     return false;
   }
 };

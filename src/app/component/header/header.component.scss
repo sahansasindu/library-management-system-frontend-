@@ -14,7 +14,6 @@
   transition: all 0.3s ease;
 }
 
-/* Optional Dark Mode / Sleek Mode Theme if needed */
 @media (prefers-color-scheme: dark) {
   .admin-header {
     background: rgba(15, 23, 42, 0.85);
@@ -40,13 +39,13 @@
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     &:hover {
       background: rgba(59, 130, 246, 0.1);
       color: #3b82f6;
       transform: scale(1.05);
     }
-    
+
     @media (prefers-color-scheme: dark) {
       color: #94a3b8;
     }
@@ -100,7 +99,7 @@
       background: #ffffff;
       border-color: rgba(96, 165, 250, 0.5);
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-      
+
       @media (prefers-color-scheme: dark) {
         background: rgba(30, 41, 59, 0.8);
       }
@@ -176,7 +175,7 @@
       align-items: center;
       justify-content: center;
       border: 2px solid #ffffff;
-      
+
       @media (prefers-color-scheme: dark) {
         border-color: #0f172a;
       }
@@ -195,7 +194,7 @@
 
     &:hover {
       background: #f1f5f9;
-      
+
       @media (prefers-color-scheme: dark) {
         background: rgba(255, 255, 255, 0.05);
       }
@@ -219,7 +218,7 @@
         font-size: 0.9rem;
         color: #1e293b;
         line-height: 1.2;
-        
+
         @media (prefers-color-scheme: dark) {
           color: #f8fafc;
         }
@@ -242,9 +241,20 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 900px) {
@@ -254,9 +264,12 @@
 }
 
 @media (max-width: 600px) {
-  .header-right .user-info, .header-right .dropdown-icon {
+
+  .header-right .user-info,
+  .header-right .dropdown-icon {
     display: none;
   }
+
   .header-right .user-profile {
     padding-right: 0.35rem;
   }
@@ -273,10 +286,12 @@
     background: rgba(139, 92, 246, 0.1) !important;
     color: #8b5cf6 !important;
   }
+
   .search-bar:focus-within {
     border-color: rgba(139, 92, 246, 0.5) !important;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15) !important;
   }
+
   .action-btn:hover {
     background: rgba(139, 92, 246, 0.1) !important;
     color: #8b5cf6 !important;
@@ -354,6 +369,7 @@
 
       &.logout-item:hover {
         color: #ef4444;
+
         mat-icon {
           color: #ef4444;
         }
@@ -363,6 +379,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

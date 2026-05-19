@@ -1,5 +1,5 @@
 <mat-list class="admin-sidebar-list" [ngClass]="{'user-sidebar-list-theme': role === 'user'}">
-  <!-- Admin Navigation Links -->
+
   <ng-container *ngIf="role === 'admin'">
     <mat-list-item [routerLinkActive]="['active']" class="nav-item">
       <mat-icon mat-list-icon>dashboard</mat-icon>
@@ -27,7 +27,7 @@
     </mat-list-item>
   </ng-container>
 
-  <!-- User Navigation Links -->
+
   <ng-container *ngIf="role === 'user'">
     <mat-list-item [routerLinkActive]="['active']" class="nav-item">
       <mat-icon mat-list-icon>dashboard</mat-icon>
@@ -45,7 +45,7 @@
     </mat-list-item>
   </ng-container>
 
-  <!-- Logout (Common) -->
+
   <mat-list-item [routerLinkActive]="['active']" class="nav-item logout-item">
     <mat-icon mat-list-icon>logout</mat-icon>
     <a routerLink="" mat-line>Logout</a>

@@ -7,11 +7,11 @@ import { AdminseviceService } from "./service/adminsevice.service";
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
-  opened = false; // Set default to false
+  opened = false;
 
   constructor(private menuService: AdminseviceService) {
     this.menuService.isOpened.subscribe(data => {
-      this.opened = data; // Sync with the service
+      this.opened = data;
     });
   }
 }

@@ -6,9 +6,8 @@
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-4" *ngFor="let tx of transactions">
       <div class="d-flex align-items-center">
-        <!-- Icon -->
         <div class="icon-container rounded-1 d-flex justify-content-center align-items-center text-white me-3"
-             [ngClass]="{
+          [ngClass]="{
                 'bg-success': tx.status === 'Completed',
                 'bg-primary': tx.status === 'Active',
                 'bg-warning': tx.status === 'Pending',
@@ -18,16 +17,13 @@
           <mat-icon *ngIf="tx.action === 'Borrow'">menu_book</mat-icon>
           <mat-icon *ngIf="tx.action === 'Reserve'">bookmark</mat-icon>
         </div>
-        <!-- Text details -->
         <div>
           <h6 class="mb-1 fw-bold">{{ tx.userName }} - {{ tx.bookTitle }}</h6>
           <small class="text-muted">{{ tx.action }} &bull; {{ tx.timeAgo }}</small>
         </div>
       </div>
-      <!-- Status Badge -->
       <div class="text-end">
-        <span class="badge rounded-1 fw-normal px-2 py-1"
-              [ngClass]="{
+        <span class="badge rounded-1 fw-normal px-2 py-1" [ngClass]="{
                  'text-bg-success': tx.status === 'Completed',
                  'text-bg-primary': tx.status === 'Active',
                  'text-bg-warning': tx.status === 'Pending',

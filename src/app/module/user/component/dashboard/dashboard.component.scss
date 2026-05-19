@@ -139,6 +139,15 @@
   font-size: 2rem;
   flex-shrink: 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: contain;
+  }
 }
 
 .sum-info {
@@ -364,6 +373,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 2.2rem;
+    height: 2.2rem;
+    object-fit: contain;
+  }
 }
 
 .book-meta {
@@ -499,6 +514,13 @@
 
   span {
     font-size: 2.5rem;
+  }
+
+  .empty-icon {
+    width: 3.2rem;
+    height: 3.2rem;
+    object-fit: contain;
+    margin-bottom: 0.4rem;
   }
 
   p {

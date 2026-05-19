@@ -99,7 +99,7 @@ export class AdduserComponent implements OnInit {
           panelClass: ['success-snackbar']
         });
         AddUserForm.reset();
-        this.fetchMemberDetails(); // Refresh the list
+        this.fetchMemberDetails();
       },
       error => {
         console.error('Error adding member!', error);
@@ -134,7 +134,7 @@ export class AdduserComponent implements OnInit {
     this.adminService.updateUserState(memberId, newState).subscribe(
       response => {
         console.log('Update Successful:', response);
-        // Find and update local active state immediately for live UI updates
+
         const account = this.getaccount.find(acc => acc.memberid === memberId);
         if (account) {
           account.active_state = newState;

@@ -8,15 +8,18 @@
         <form #RegisterForm="ngForm" (ngSubmit)="Register(RegisterForm)">
           <div class="mb-3">
             <label for="memberid" class="form-label fw-semibold">Member ID</label>
-            <input type="text" class="form-control input-custom" id="memberid" placeholder="Enter your member ID" ngModel name="memberid" required>
+            <input type="text" class="form-control input-custom" id="memberid" placeholder="Enter your member ID"
+              ngModel name="memberid" required>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label fw-semibold">Email</label>
-            <input type="email" class="form-control input-custom" id="email" placeholder="Enter your email" ngModel name="email" required>
+            <input type="email" class="form-control input-custom" id="email" placeholder="Enter your email" ngModel
+              name="email" required>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label fw-semibold">Password</label>
-            <input type="password" class="form-control input-custom" id="password" placeholder="Enter password" ngModel name="password" required>
+            <input type="password" class="form-control input-custom" id="password" placeholder="Enter password" ngModel
+              name="password" required>
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-primary btn-lg rounded-3">Register</button>
@@ -31,23 +34,22 @@
 </div>
 
 <style>
-  /* Background gradient for the card header */
   .bg-gradient {
     background: linear-gradient(135deg, #4b0082, #3350c4);
     padding: 15px;
-    min-height: 60px; /* Ensures header has enough space */
+    min-height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Styling for card header text */
+
   .card-header h4 {
     font-size: 1.5rem;
-    margin-bottom: 0; /* Prevents extra spacing issues */
+    margin-bottom: 0;
   }
 
-  /* Custom styling for form inputs */
+
   .input-custom {
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -59,25 +61,22 @@
     box-shadow: 0 0 10px rgba(106, 13, 173, 0.3);
   }
 
-  /* Button hover effect */
   .btn-primary:hover {
     background: #3d38e0;
     transition: 0.3s;
   }
 
-  /* Card Styling */
   .card {
     border-radius: 20px;
     overflow: hidden;
   }
 
-  /* Better spacing */
+
   .card-body {
     padding: 30px;
   }
-  .fw-bold{
+
+  .fw-bold {
     color: #080908;
   }
-
-
 </style>
