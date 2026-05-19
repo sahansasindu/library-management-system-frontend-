@@ -1,0 +1,36 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 1rem;
+
+  p {
+    margin-top: 1rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+  
+  mat-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    color: #94a3b8;
+  }
+}
+
+.circulation-paginator {
+  border-top: 1px solid #f1f5f9;
+  background: #f8fafc;
+  color: #475569;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  margin-top: 1rem;
+  border-radius: 0 0 12px 12px;
+}

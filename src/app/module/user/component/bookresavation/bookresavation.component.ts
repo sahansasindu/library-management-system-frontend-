@@ -1,7 +1,7 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { UserserviceService } from "../../service/userservice.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { UserAuthService } from "../../../../service/user-auth.service";
 
 @Component({
   selector: 'app-bookresavation',
@@ -19,8 +19,8 @@ export class BookresavationComponent implements OnInit {
   constructor(
     private userService: UserserviceService,
     private snackBar: MatSnackBar,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+    private userAuthService: UserAuthService
+  ) { }
 
   ngOnInit(): void {
     this.loadBooks();
@@ -55,12 +55,13 @@ export class BookresavationComponent implements OnInit {
   }
 
   reserveBook(bookId: string): void {
-    let memberId = 'MEM-001';
-    
-    if (isPlatformBrowser(this.platformId)) {
-      memberId = localStorage.getItem('user_id') || 'MEM-001'; 
+    const memberId = this.userAuthService.getMemberId();
+
+    if (!memberId) {
+      this.snackBar.open('Session expired. Please log in again.', 'Close', { duration: 3000 });
+      return;
     }
-    
+
     const reservationData = {
       member_id: memberId,
       book_id: bookId
@@ -69,7 +70,7 @@ export class BookresavationComponent implements OnInit {
     this.userService.reserveBook(reservationData).subscribe({
       next: (response) => {
         this.snackBar.open('Book reserved successfully!', 'Close', { duration: 3000 });
-        this.loadBooks(); // Refresh availability
+        this.loadBooks();
       },
       error: (err) => {
         this.snackBar.open('Failed to reserve book', 'Close', { duration: 3000 });

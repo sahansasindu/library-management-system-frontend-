@@ -54,5 +54,18 @@ export class UserAuthService {
     }
     return false;
   }
+
+  public setMemberId(memberId: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('memberId', memberId);
+    }
+  }
+
+  public getMemberId(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('memberId');
+    }
+    return null;
+  }
 }
 

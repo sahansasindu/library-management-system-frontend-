@@ -1,0 +1,29 @@
+<div class="book-card-global">
+  <div class="book-image-wrapper">
+    <img [src]="book?.photoBase64" alt="{{book?.title}}" *ngIf="book?.photoBase64">
+    <div class="no-image" *ngIf="!book?.photoBase64">
+      <mat-icon>menu_book</mat-icon>
+    </div>
+
+    <div class="badges-container">
+      <div class="availability-badge" [class.low-stock]="book?.qty < 3" *ngIf="book?.qty !== undefined">
+        {{book?.qty}} available
+      </div>
+    </div>
+  </div>
+
+  <div class="book-details">
+    <div class="category">{{book?.category}}</div>
+    <h3 class="book-title">{{book?.title}}</h3>
+    <p class="author">By {{book?.author}}</p>
+    <div class="meta-data">
+      <p class="isbn" *ngIf="book?.isbn">ISBN: {{book?.isbn}}</p>
+      <p class="book-id" *ngIf="book?.bookid || book?.bookId">ID: {{book?.bookid || book?.bookId}}</p>
+    </div>
+  </div>
+
+  <div class="card-footer">
+
+    <ng-content select="[card-actions]"></ng-content>
+  </div>
+</div>

@@ -40,6 +40,18 @@ export class AdminseviceService {
     });
   }
 
+  public getAllBooksForAdmin(page: number, size: number, searchText: string): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('searchText', searchText);
+
+    return this.httpClient.get<any>(`${this.BASE_URL}/all-for-admin`, {
+      headers: this.getAuthHeaders(),
+      params: params
+    });
+  }
+
 
 
   // API call to add a member
@@ -69,23 +81,41 @@ export class AdminseviceService {
   }
 
 
-  public getReservedBooks(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.BASE_URL}/reservationdetails`, {
+  public getReservedBooks(page: number, size: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.httpClient.get<any>(`${this.BASE_URL}/reservationdetails`, {
       headers: this.getAuthHeaders(),
+      params
     });
   }
 
 
-  public getIssuedBooks(): Observable<any> {
+  public getIssuedBooks(page: number, size: number, searchText: string = ''): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
     return this.httpClient.get<any>(`${this.BASE_URL}/issueBookdetails`, {
       headers: this.getAuthHeaders(),
+      params
     });
   }
 
 
-  public getReturnedBooks(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.BASE_URL}/returnbookdetails`, {
+  public getReturnedBooks(page: number, size: number, searchText: string = ''): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+    return this.httpClient.get<any>(`${this.BASE_URL}/returnbookdetails`, {
       headers: this.getAuthHeaders(),
+      params
     });
   }
 
@@ -125,4 +155,41 @@ export class AdminseviceService {
 
 
 
+  public getReservedBooksByMemberId(memberId: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.BASE_URL}/reservationdetails/${memberId}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public getAdminDashboardStats(): Observable<any> {
+    return this.httpClient.get<any>(`${this.Admin_URL}/dashboard`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public changeBookActiveState(bookId: string, activeState: boolean): Observable<any> {
+    const params = new HttpParams().set('activeState', activeState.toString());
+    return this.httpClient.put(`${this.BASE_URL}/changeActiveState/${bookId}`, null, {
+      headers: this.getAuthHeaders(),
+      params: params
+    });
+  }
+
+  public getAllFines(): Observable<any> {
+    return this.httpClient.get<any>(`${this.Admin_URL}/fines`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public markFineAsPaid(returnBookId: number): Observable<any> {
+    return this.httpClient.put<any>(`${this.Admin_URL}/fines/${returnBookId}/pay`, null, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  public getAllBookCategories(): Observable<any> {
+    return this.httpClient.get<any>(`${this.BASE_URL}/categories`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 }

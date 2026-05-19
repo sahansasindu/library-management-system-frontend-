@@ -1,0 +1,95 @@
+<div class="admin-fines-wrapper">
+  
+  <div class="fines-header">
+    <div class="header-left">
+      <h1>Fine Management</h1>
+      <p>View member penalties and mark outstanding fines as paid.</p>
+    </div>
+    <div class="header-right">
+      <div class="search-box">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input 
+          type="text" 
+          [(ngModel)]="searchText" 
+          (input)="applyFilters()" 
+          placeholder="Search member, book..." 
+          class="search-input"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="setFilter('all')">All Fines</button>
+    <button class="filter-btn" [class.active]="activeFilter === 'unpaid'" (click)="setFilter('unpaid')">Unpaid</button>
+    <button class="filter-btn" [class.active]="activeFilter === 'paid'" (click)="setFilter('paid')">Paid</button>
+  </div>
+
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-ring"></div>
+    <p>Loading fines data...</p>
+  </div>
+
+  <div class="error-banner" *ngIf="hasError && !isLoading">
+    <span>⚠️ Could not fetch fines data. Please try again.</span>
+    <button (click)="loadFines()">Retry</button>
+  </div>
+
+  <div class="fines-panel" *ngIf="!isLoading && !hasError">
+    <div class="table-container" *ngIf="filteredFines.length > 0; else emptyState">
+      <table class="premium-table">
+        <thead>
+          <tr>
+            <th>Member Details</th>
+            <th>Book Details</th>
+            <th>Fine Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fine of filteredFines">
+            <td>
+              <div class="info-block">
+                <span class="main-text">{{ fine.memberName }}</span>
+                <span class="sub-text">ID: {{ fine.memberId }}</span>
+              </div>
+            </td>
+            <td>
+              <div class="info-block">
+                <span class="main-text">{{ fine.bookTitle }}</span>
+                <span class="sub-text">ID: {{ fine.bookId }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="fine-value" [ngClass]="fine.paid ? 'val-paid' : 'val-unpaid'">
+                Rs. {{ fine.amount | number:'1.2-2' }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [ngClass]="fine.paid ? 'status-paid' : 'status-unpaid'">
+                {{ fine.paid ? '✅ Paid' : '⚠️ Unpaid' }}
+              </span>
+            </td>
+            <td>
+              <button 
+                class="action-btn pay-btn" 
+                *ngIf="!fine.paid" 
+                (click)="markAsPaid(fine)">
+                Mark as Paid
+              </button>
+              <span *ngIf="fine.paid" class="text-muted">No actions</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <mat-icon>price_check</mat-icon>
+        <p>No fines found matching your criteria.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

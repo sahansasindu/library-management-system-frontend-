@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { AdminseviceService } from "../../service/adminsevice.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+
 @Component({
   selector: 'app-adduser',
   templateUrl: './adduser.component.html',
@@ -20,7 +22,10 @@ export class AdduserComponent implements OnInit {
   totalMembers: number = 0;
 
 
-  constructor(private adminService: AdminseviceService) { }
+  constructor(
+    private adminService: AdminseviceService,
+    private snackBar: MatSnackBar
+  ) { }
 
 
   ngOnInit() {
@@ -89,13 +94,19 @@ export class AdduserComponent implements OnInit {
     this.adminService.addUserDetails(memberData).subscribe(
       response => {
         console.log('Member added successfully!', response);
-        alert('Member added successfully!');
+        this.snackBar.open('Member added successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
         AddUserForm.reset();
         this.fetchMemberDetails(); // Refresh the list
       },
       error => {
         console.error('Error adding member!', error);
-        alert('Failed to add member. Please try again.');
+        this.snackBar.open('Failed to add member. Please try again.', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
       }
     );
   }
@@ -123,11 +134,22 @@ export class AdduserComponent implements OnInit {
     this.adminService.updateUserState(memberId, newState).subscribe(
       response => {
         console.log('Update Successful:', response);
-        alert('User state updated successfully');
+        // Find and update local active state immediately for live UI updates
+        const account = this.getaccount.find(acc => acc.memberid === memberId);
+        if (account) {
+          account.active_state = newState;
+        }
+        this.snackBar.open('User state updated successfully', 'Close', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
       },
       error => {
         console.error('Update Failed:', error);
-        alert('Failed to update user state');
+        this.snackBar.open('Failed to update user state', 'Close', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
       }
     );
   }

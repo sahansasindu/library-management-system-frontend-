@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>Manage Profile</h2>
+  <form #updateprofileForm="ngForm" (ngSubmit)="onSubmit(updateprofileForm)">
+
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="text" class="form-control" name="email" [(ngModel)]="email" required />
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="password" required />
+    </div>
+
+
+    <div class="mb-3">
+      <label class="form-label">Re-enter Password</label>
+      <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" required />
+      <div *ngIf="passwordMismatch" class="text-danger mt-1">Passwords do not match.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+  </form>
+</div>

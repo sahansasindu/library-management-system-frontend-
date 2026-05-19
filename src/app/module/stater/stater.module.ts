@@ -7,29 +7,21 @@ import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
-
-
-
-
-
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
     StaterComponent,
     LoginComponent,
     RegisterComponent,
-
-
-
-
-
   ],
   imports: [
     CommonModule,
     StaterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIcon
+    MatIcon,
+    MatSnackBarModule
   ]
 })
 export class StaterModule { }

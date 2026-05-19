@@ -1,0 +1,53 @@
+<mat-list class="admin-sidebar-list" [ngClass]="{'user-sidebar-list-theme': role === 'user'}">
+  <!-- Admin Navigation Links -->
+  <ng-container *ngIf="role === 'admin'">
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>dashboard</mat-icon>
+      <a routerLink="admindashboard" mat-line>Dashboard</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>person_add</mat-icon>
+      <a routerLink="adduser" mat-line>Add User</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>menu_book</mat-icon>
+      <a routerLink="addbook" mat-line>Manage Books</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>swap_horiz</mat-icon>
+      <a routerLink="bookcirculation" mat-line>Circulation</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>price_check</mat-icon>
+      <a routerLink="managefines" mat-line>Manage Fines</a>
+    </mat-list-item>
+  </ng-container>
+
+  <!-- User Navigation Links -->
+  <ng-container *ngIf="role === 'user'">
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>dashboard</mat-icon>
+      <a routerLink="dashboard" mat-line>Dashboard</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>library_books</mat-icon>
+      <a routerLink="reservation" mat-line>Books & Reservations</a>
+    </mat-list-item>
+
+    <mat-list-item [routerLinkActive]="['active']" class="nav-item">
+      <mat-icon mat-list-icon>history</mat-icon>
+      <a routerLink="history" mat-line>Borrowing History</a>
+    </mat-list-item>
+  </ng-container>
+
+  <!-- Logout (Common) -->
+  <mat-list-item [routerLinkActive]="['active']" class="nav-item logout-item">
+    <mat-icon mat-list-icon>logout</mat-icon>
+    <a routerLink="" mat-line>Logout</a>
+  </mat-list-item>
+</mat-list>

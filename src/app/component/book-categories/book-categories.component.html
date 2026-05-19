@@ -1,0 +1,20 @@
+<div class="card border-0 shadow-sm h-100">
+  <div class="card-header bg-white border-0 text-center pt-4 pb-2">
+    <h5 class="mb-0 fw-bold">Book Categories</h5>
+  </div>
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-3" *ngFor="let cat of categories">
+      <div class="category-label text-end pe-3 text-muted">
+        <small>{{ cat.name }}</small>
+      </div>
+      <div class="flex-grow-1">
+        <div class="progress rounded-0" style="height: 18px;">
+          <div class="progress-bar" role="progressbar" [style.width]="cat.width" [style.background-color]="cat.color"></div>
+        </div>
+      </div>
+      <div class="category-count ps-2 text-muted">
+        <small>{{ cat.count }}</small>
+      </div>
+    </div>
+  </div>
+</div>

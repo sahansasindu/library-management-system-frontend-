@@ -29,12 +29,23 @@
         <input type="text" class="form-control" name="isbn" [(ngModel)]="book.isbn" required />
       </div>
       <div class="mb-3">
-        <label class="form-label">Category</label>
-        <select class="form-control" name="category" [(ngModel)]="book.category" required>
+        <label class="form-label d-flex justify-content-between align-items-center">
+          <span>Category</span>
+          <button type="button" class="btn btn-sm btn-link p-0 text-decoration-none" (click)="toggleNewCategoryInput()">
+            {{ isAddingNewCategory ? 'Choose Existing' : 'Add New Category' }}
+          </button>
+        </label>
+
+        <select *ngIf="!isAddingNewCategory" class="form-control" name="category" [(ngModel)]="book.category" required>
           <option value="" disabled selected>Select Category</option>
-          <option value="Action">Action</option>
-          <option value="Romantic">Romantic</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
         </select>
+
+        <div *ngIf="isAddingNewCategory" class="input-group">
+          <input type="text" class="form-control" placeholder="Type new category name..." [(ngModel)]="newCategoryName"
+            name="newCategoryInputName" />
+          <button type="button" class="btn btn-outline-secondary" (click)="addNewCategory()">Add</button>
+        </div>
       </div>
 
       <div class="mb-3">
@@ -54,28 +65,28 @@
 
     <div class="row mb-3">
       <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Search books..." [(ngModel)]="searchText" (input)="onSearchChange()">
+        <input type="text" class="form-control" placeholder="Search books..." [(ngModel)]="searchText"
+          (input)="onSearchChange()">
       </div>
     </div>
 
     <div class="row">
 
-      <div class="col-md-4 mb-3" *ngFor="let book of bookList">
-        <div class="card">
-
-          <img [src]="book.photoBase64 ? book.photoBase64 : 'assets/default-book.png'" class="card-img-top book-image"
-            alt="Book Image">
-          <div class="card-body">
-            <h5 class="card-title">{{ book.title }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
-            <p class="card-text"><strong>Category:</strong> {{ book.category }}</p>
-            <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
-            <p class="card-text"><strong>Quantity:</strong> {{ book.qty }}</p>
-            <button class="btn btn-success btn-sm" (click)="reserveBook(book)" *ngIf="!book.reserved">Freeze</button>
-            <button class="btn btn-warning btn-sm" (click)="closeReservation(book)"
-              *ngIf="book.reserved">Unfreeze</button>
+      <div class="col-md-4 mb-4" *ngFor="let book of bookList">
+        <app-book-card [book]="book">
+          <div card-actions class="d-flex w-100 justify-content-end mt-2">
+            <button class="btn btn-success btn-sm w-100" (click)="reserveBook(book)" *ngIf="book.activeState">
+              <mat-icon
+                style="vertical-align: middle; margin-right: 4px; font-size: 18px; width: 18px; height: 18px;">ac_unit</mat-icon>
+              Freeze
+            </button>
+            <button class="btn btn-warning btn-sm w-100" (click)="closeReservation(book)" *ngIf="!book.activeState">
+              <mat-icon
+                style="vertical-align: middle; margin-right: 4px; font-size: 18px; width: 18px; height: 18px;">wb_sunny</mat-icon>
+              Unfreeze
+            </button>
           </div>
-        </div>
+        </app-book-card>
       </div>
     </div>
 
@@ -84,9 +95,11 @@
         Showing {{ bookList.length }} of {{ totalBooks }} books
       </div>
       <div class="d-flex gap-2">
-        <button class="btn btn-sm btn-outline-secondary" [disabled]="page === 0" (click)="previousPage()">Previous</button>
+        <button class="btn btn-sm btn-outline-secondary" [disabled]="page === 0"
+          (click)="previousPage()">Previous</button>
         <span class="align-self-center">Page {{ page + 1 }}</span>
-        <button class="btn btn-sm btn-outline-secondary" [disabled]="(page + 1) * size >= totalBooks" (click)="nextPage()">Next</button>
+        <button class="btn btn-sm btn-outline-secondary" [disabled]="(page + 1) * size >= totalBooks"
+          (click)="nextPage()">Next</button>
       </div>
     </div>
 

@@ -1,61 +1,109 @@
-<div class="container mt-5">
-  <!-- Welcome Message -->
-  <div class="alert alert-primary text-center" role="alert">
-    <h4>Welcome, {{ userFullName }}!</h4>
+<div class="dashboard-wrapper">
+
+
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-ring"></div>
+    <p>Loading dashboard data…</p>
   </div>
 
-  <h2 class="mb-4">Library Dashboard Overview</h2>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card text-bg-primary mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Total Books Available</h5>
-          <p class="card-text">Fiction: 200 | Non-Fiction: 150 | Reference: 50</p>
-        </div>
-      </div>
+
+  <div class="error-banner" *ngIf="hasError && !isLoading">
+    <span>Failed to load dashboard stats.</span>
+    <button (click)="loadDashboardStats()">Retry</button>
+  </div>
+
+
+  <div class="dash-header" *ngIf="!isLoading">
+    <div class="header-left">
+      <h1 class="dash-title">Admin Dashboard</h1>
+      <p class="dash-subtitle">Welcome back, <strong>{{ userFullName }}</strong> — here's your library overview.</p>
     </div>
-    <div class="col-md-4">
-      <div class="card text-bg-success mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Issued Books</h5>
-          <p class="card-text">Currently Borrowed: 120</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-bg-danger mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Overdue Books</h5>
-          <p class="card-text">10 books past return date</p>
-        </div>
-      </div>
+    <div class="header-right">
+      <div class="date-pill">{{ today | date: 'EEEE, MMMM d, y' }}</div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card text-bg-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">New Arrivals</h5>
-          <p class="card-text">Recently added books: 30</p>
+
+  <div class="stats-grid" *ngIf="!isLoading">
+
+    <div class="stat-card card-blue">
+      <div class="stat-icon">
+        <img src="/assets/icone/books.png" alt="Total Books Icon">
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Total Books</span>
+        <span class="stat-value">{{ totalBooks }}</span>
+      </div>
+      <div class="stat-glow"></div>
+    </div>
+
+    <div class="stat-card card-green">
+      <div class="stat-icon">
+        <img src="/assets/icone/membours.png" alt="Total Members Icon">
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Total Members</span>
+        <span class="stat-value">{{ totalMembers }}</span>
+      </div>
+      <div class="stat-glow"></div>
+    </div>
+
+    <div class="stat-card card-red">
+      <div class="stat-icon">
+        <img src="/assets/icone/overdue.png" alt="Overdue Icon">
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Overdue</span>
+        <span class="stat-value">{{ overdueBooks }}</span>
+      </div>
+      <div class="stat-glow"></div>
+    </div>
+
+    <div class="stat-card card-orange">
+      <div class="stat-icon">
+        <img src="/assets/icone/reservtion.png" alt="Reservations Icon">
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Reservations</span>
+        <span class="stat-value">{{ totalReservations }}</span>
+      </div>
+      <div class="stat-glow"></div>
+    </div>
+
+  </div>
+
+
+  <div class="bottom-grid" *ngIf="!isLoading">
+
+
+    <div class="panel transactions-panel">
+      <div class="panel-header">
+        <h2>Recent Transactions</h2>
+        <span class="panel-badge">Last 10</span>
+      </div>
+      <div class="tx-list" *ngIf="recentTransactions.length > 0; else noTx">
+        <div class="tx-item" *ngFor="let tx of recentTransactions">
+          <div class="tx-icon-wrap">
+            <span class="tx-icon">{{ getTransactionIcon(tx.type) }}</span>
+          </div>
+          <div class="tx-details">
+            <span class="tx-name">{{ tx.name }}</span>
+            <span class="tx-date">{{ tx.date }}</span>
+          </div>
+          <span class="tx-badge" [ngClass]="getTransactionBadgeClass(tx.type)">{{ tx.type }}</span>
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-bg-warning mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Registered Users</h5>
-          <p class="card-text">Total Members: 500</p>
+      <ng-template #noTx>
+        <div class="empty-state">
+          <p>No recent transactions yet.</p>
         </div>
-      </div>
+      </ng-template>
     </div>
-    <div class="col-md-4">
-      <div class="card text-bg-secondary mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Book Requests/Pending Approvals</h5>
-          <p class="card-text">Pending approvals: 15</p>
-        </div>
-      </div>
+
+
+    <div class="panel categories-panel">
+      <app-book-categories [categories]="bookCategories"></app-book-categories>
     </div>
+
   </div>
 </div>

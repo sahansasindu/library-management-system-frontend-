@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class ManageuserprofileComponent {
 
+  handleProfileSubmit(data: any) {
+    console.log('User Form Submitted:', data.email, data.password);
+    // Add logic to handle the form submission for user
+  }
 }

@@ -1,9 +1,9 @@
-<app-adminheader></app-adminheader>
+<app-header [role]="'admin'"></app-header>
 
 <mat-drawer-container class="example-container" autosize>
 
   <mat-drawer [opened]="opened" class="example-sidenav" mode="side">
-    <app-adminsidebar></app-adminsidebar>
+    <app-sidebar [role]="'admin'"></app-sidebar>
   </mat-drawer>
 
   <!-- Main Content -->

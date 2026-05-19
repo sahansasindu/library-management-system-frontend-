@@ -11,6 +11,8 @@ import {MatList, MatListItem, MatListModule} from "@angular/material/list";
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import { NotfoundpageComponent } from './component/notfoundpage/notfoundpage.component';
 import {HttpClientModule} from "@angular/common/http";
+import { RecentTransactionsComponent } from './component/recent-transactions/recent-transactions.component';
+import { BookCategoriesComponent } from './component/book-categories/book-categories.component';
 
 
 

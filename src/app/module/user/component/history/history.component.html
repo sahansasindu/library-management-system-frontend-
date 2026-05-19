@@ -1,0 +1,161 @@
+<div class="user-history-wrapper">
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-ring"></div>
+    <p>Loading your history details…</p>
+  </div>
+
+  <!-- Error Banner -->
+  <div class="error-banner" *ngIf="hasError && !isLoading">
+    <span>⚠️ Could not fetch your history. Please try again.</span>
+    <button (click)="loadHistoryData()">Retry</button>
+  </div>
+
+  <ng-container *ngIf="!isLoading && !hasError">
+    <!-- Header -->
+    <div class="history-header">
+      <div class="header-left">
+        <h1 class="history-title">My Activity History</h1>
+        <p class="history-subtitle">View your complete borrowing and returning records here.</p>
+      </div>
+      <div class="header-right">
+        <!-- Search Bar -->
+        <div class="search-box">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input 
+            type="text" 
+            [(ngModel)]="searchText" 
+            (input)="applyFilters()" 
+            placeholder="Search by title, author, or ID..." 
+            class="search-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn" [class.tab-active]="activeTab === 'borrow'" (click)="setTab('borrow')">
+        📤 Borrow History <span class="tab-count">{{ filteredBorrowHistory.length }}</span>
+      </button>
+      <button class="tab-btn" [class.tab-active]="activeTab === 'return'" (click)="setTab('return')">
+        📥 Return History <span class="tab-count">{{ filteredReturnHistory.length }}</span>
+      </button>
+    </div>
+
+    <!-- Borrow History Panel -->
+    <div class="history-panel" *ngIf="activeTab === 'borrow'">
+      <div class="table-container" *ngIf="filteredBorrowHistory.length > 0; else emptyBorrow">
+        <table class="premium-table">
+          <thead>
+            <tr>
+              <th>Book Details</th>
+              <th>Book ID</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filteredBorrowHistory">
+              <td class="book-details-cell">
+                <div class="book-info">
+                  <div class="book-icon">📖</div>
+                  <div>
+                    <div class="book-title">{{ item.title }}</div>
+                    <div class="book-author">by {{ item.author }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="id-badge">{{ item.bookId }}</span></td>
+              <td>{{ item.issueDate | date: 'dd MMM yyyy' }}</td>
+              <td>{{ item.dueDate | date: 'dd MMM yyyy' }}</td>
+              <td>
+                <span *ngIf="item.isReturned" class="status-badge status-returned">✅ Returned</span>
+                <span *ngIf="!item.isReturned && isOverdue(item.dueDate)" class="status-badge status-overdue">⚠️ Overdue</span>
+                <span *ngIf="!item.isReturned && !isOverdue(item.dueDate)" class="status-badge status-active">✅ Active</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator 
+          [length]="totalBorrowCount"
+          [pageSize]="borrowSize"
+          [pageIndex]="borrowPage"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          (page)="onBorrowPageChange($event)"
+          class="history-paginator">
+        </mat-paginator>
+      </div>
+
+      <ng-template #emptyBorrow>
+        <div class="empty-state">
+          <span>📤</span>
+          <p>No borrow records found matching your query.</p>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Return History Panel -->
+    <div class="history-panel" *ngIf="activeTab === 'return'">
+      <div class="table-container" *ngIf="filteredReturnHistory.length > 0; else emptyReturn">
+        <table class="premium-table">
+          <thead>
+            <tr>
+              <th>Book Details</th>
+              <th>Book ID</th>
+              <th>Return Date</th>
+              <th>Penalty Fine</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filteredReturnHistory">
+              <td class="book-details-cell">
+                <div class="book-info">
+                  <div class="book-icon">📗</div>
+                  <div>
+                    <div class="book-title">{{ item.title }}</div>
+                    <div class="book-author">by {{ item.author }}</div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="id-badge">{{ item.bookId }}</span></td>
+              <td>{{ item.returnedDate | date: 'dd MMM yyyy' }}</td>
+              <td>
+                <span class="fine-value" [ngClass]="{'has-fine': item.penaltyAmount > 0}">
+                  Rs. {{ item.penaltyAmount | number:'1.2-2' }}
+                  <span *ngIf="item.penaltyAmount > 0" class="fine-status" [ngClass]="item.isPaid ? 'is-paid' : 'is-unpaid'">
+                    ({{ item.isPaid ? 'Paid' : 'Unpaid' }})
+                  </span>
+                </span>
+              </td>
+              <td>
+                <span class="status-badge status-returned">
+                  ✅ Returned
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <mat-paginator 
+          [length]="totalReturnCount"
+          [pageSize]="returnSize"
+          [pageIndex]="returnPage"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          (page)="onReturnPageChange($event)"
+          class="history-paginator">
+        </mat-paginator>
+      </div>
+
+      <ng-template #emptyReturn>
+        <div class="empty-state">
+          <span>📥</span>
+          <p>No return records found matching your query.</p>
+        </div>
+      </ng-template>
+    </div>
+
+  </ng-container>
+</div>

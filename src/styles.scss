@@ -9,3 +9,44 @@ body {
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+
+/* Custom Snackbar styling */
+.cdk-overlay-container {
+  z-index: 10000 !important;
+}
+
+.success-snackbar {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500 !important;
+  
+  .mdc-snackbar__label, .mat-mdc-snack-bar-label {
+    color: #ffffff !important;
+  }
+  
+  .mat-mdc-snack-bar-action, .mdc-snackbar__actions button {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+}
+
+.error-snackbar {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 500 !important;
+  
+  .mdc-snackbar__label, .mat-mdc-snack-bar-label {
+    color: #ffffff !important;
+  }
+  
+  .mat-mdc-snack-bar-action, .mdc-snackbar__actions button {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+}

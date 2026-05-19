@@ -1,66 +1,234 @@
-<div class="container mt-5">
-  <!-- Welcome Message -->
-  <div class="alert alert-success text-center" role="alert">
-    <h4>Welcome, {{ userFullName }}!</h4>
+<div class="user-dash-wrapper">
+
+  <!-- Loading -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-ring"></div>
+    <p>Loading your library data…</p>
   </div>
 
-  <h2 class="mb-4">Library Dashboard</h2>
-
-  <div class="row">
-    <!-- Borrowed Books -->
-    <div class="col-md-6">
-      <div class="card text-bg-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Books Borrowed</h5>
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let book of borrowedBooks">
-              {{ book.title }} - Due Date: {{ book.dueDate }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pending Requests -->
-    <div class="col-md-6">
-      <div class="card text-bg-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Pending Requests</h5>
-          <p *ngIf="pendingRequests.length === 0">No pending requests.</p>
-          <ul class="list-group" *ngIf="pendingRequests.length > 0">
-            <li class="list-group-item" *ngFor="let request of pendingRequests">
-              {{ request.title }} - Status: {{ request.status }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <!-- Error -->
+  <div class="error-banner" *ngIf="hasError && !isLoading">
+    <span>⚠️ Could not load your dashboard. Please try again.</span>
+    <button (click)="loadUserDashboard()">Retry</button>
   </div>
 
-  <div class="row">
-    <!-- Available Books -->
-    <div class="col-md-6">
-      <div class="card text-bg-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Available Books</h5>
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let book of availableBooks">
-              {{ book.title }} - {{ book.category }}
-            </li>
-          </ul>
-        </div>
+  <ng-container *ngIf="!isLoading && !hasError">
+
+    <!-- Header -->
+    <div class="dash-header">
+      <div class="header-left">
+        <h1 class="dash-title">My Library</h1>
+        <p class="dash-subtitle">Hello, <strong>{{ userFullName }}</strong> — manage your books below.</p>
+      </div>
+      <div class="header-right">
+        <div class="date-pill">📅 {{ today | date: 'EEEE, d MMM y' }}</div>
       </div>
     </div>
 
-    <!-- Fines -->
-    <div class="col-md-6">
-      <div class="card text-bg-info mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Fines</h5>
-          <p *ngIf="fineAmount === 0">No outstanding fines.</p>
-          <p *ngIf="fineAmount > 0">You have a fine of Rs. {{ fineAmount }}</p>
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="sum-card card-indigo" (click)="setTab('reserved')">
+        <div class="sum-icon">🔖</div>
+        <div class="sum-info">
+          <span class="sum-label">Reserved</span>
+          <span class="sum-val">{{ reservedBooks.length }}</span>
         </div>
+        <div class="sum-glow"></div>
+      </div>
+
+      <div class="sum-card card-emerald" (click)="setTab('issued')">
+        <div class="sum-icon">📤</div>
+        <div class="sum-info">
+          <span class="sum-label">Active Borrowed</span>
+          <span class="sum-val">{{ activeIssuedCount }}</span>
+        </div>
+        <div class="sum-glow"></div>
+      </div>
+
+      <div class="sum-card card-sky" (click)="setTab('returned')">
+        <div class="sum-icon">📥</div>
+        <div class="sum-info">
+          <span class="sum-label">Returned</span>
+          <span class="sum-val">{{ returnedBooks.length }}</span>
+        </div>
+        <div class="sum-glow"></div>
+      </div>
+
+      <div class="sum-card" [ngClass]="totalFines > 0 ? 'card-rose' : 'card-slate'">
+        <div class="sum-icon">💰</div>
+        <div class="sum-info">
+          <span class="sum-label">Total Fines</span>
+          <span class="sum-val">Rs. {{ totalFines | number:'1.2-2' }}</span>
+        </div>
+        <div class="sum-glow"></div>
       </div>
     </div>
-  </div>
+
+    <!-- Fine Alert -->
+    <div class="fine-alert" *ngIf="totalFines > 0">
+      <span class="fine-alert-icon">⚠️</span>
+      <span>You have outstanding fines of <strong>Rs. {{ totalFines | number:'1.2-2' }}</strong>. Please clear them at the library counter.</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn" [class.tab-active]="activeTab === 'reserved'" (click)="setTab('reserved')">
+        🔖 Reserved <span class="tab-count">{{ reservedBooks.length }}</span>
+      </button>
+      <button class="tab-btn" [class.tab-active]="activeTab === 'issued'" (click)="setTab('issued')">
+        📤 Borrowed <span class="tab-count">{{ issuedBooks.length }}</span>
+      </button>
+      <button class="tab-btn" [class.tab-active]="activeTab === 'returned'" (click)="setTab('returned')">
+        📥 Returned <span class="tab-count">{{ returnedBooks.length }}</span>
+      </button>
+    </div>
+
+    <!-- Reserved Books Tab -->
+    <div class="book-panel" *ngIf="activeTab === 'reserved'">
+      <div *ngIf="reservedBooks.length > 0; else emptyReserved">
+        <div class="book-grid">
+          <div class="book-card" *ngFor="let book of paginatedReservedBooks">
+            <div class="book-top">
+              <div class="book-cover">📚</div>
+              <div class="book-meta">
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">by {{ book.author }}</p>
+                <span class="book-id">ID: {{ book.bookId }}</span>
+              </div>
+            </div>
+            <div class="book-dates">
+              <div class="date-row">
+                <span class="date-label">Reserved:</span>
+                <span class="date-val">{{ book.reservedDate }}</span>
+              </div>
+              <div class="date-row">
+                <span class="date-label">Due:</span>
+                <span class="date-val" [ngClass]="{
+                  'due-overdue': isOverdue(book.dueDate),
+                  'due-soon': isDueSoon(book.dueDate) && !isOverdue(book.dueDate)
+                }">{{ book.dueDate }}</span>
+              </div>
+            </div>
+            <div class="status-row">
+              <span class="status-badge" [ngClass]="book.state ? 'status-active' : 'status-expired'">
+                {{ book.state ? '✅ Active' : '❌ Expired' }}
+              </span>
+              <span *ngIf="isOverdue(book.dueDate) && book.state" class="overdue-tag">⚠️ Overdue</span>
+            </div>
+          </div>
+        </div>
+        <mat-paginator 
+          [length]="reservedBooks.length"
+          [pageSize]="reservedPageSize"
+          [pageIndex]="reservedPageIndex"
+          [pageSizeOptions]="[4, 8, 12]"
+          (page)="onReservedPageChange($event)"
+          class="dashboard-paginator">
+        </mat-paginator>
+      </div>
+      <ng-template #emptyReserved>
+        <div class="empty-state">
+          <span>🔖</span>
+          <p>No reservations found.</p>
+          <a routerLink="../reservation" class="cta-link">Browse & Reserve Books →</a>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Issued/Borrowed Tab -->
+    <div class="book-panel" *ngIf="activeTab === 'issued'">
+      <div *ngIf="issuedBooks.length > 0; else emptyIssued">
+        <div class="book-grid">
+          <div class="book-card" *ngFor="let book of paginatedIssuedBooks">
+            <div class="book-top">
+              <div class="book-cover">📖</div>
+              <div class="book-meta">
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">by {{ book.author }}</p>
+                <span class="book-id">ID: {{ book.bookId }}</span>
+              </div>
+            </div>
+            <div class="book-dates">
+              <div class="date-row">
+                <span class="date-label">Issued:</span>
+                <span class="date-val">{{ book.issueDate }}</span>
+              </div>
+              <div class="date-row">
+                <span class="date-label">Due:</span>
+                <span class="date-val" [ngClass]="{
+                  'due-overdue': isOverdue(book.dueDate),
+                  'due-soon': isDueSoon(book.dueDate) && !isOverdue(book.dueDate)
+                }">{{ book.dueDate }}</span>
+              </div>
+            </div>
+            <div class="status-row">
+              <span *ngIf="book.isReturned" class="status-badge status-returned">✅ Returned</span>
+              <span *ngIf="!book.isReturned && isOverdue(book.dueDate)" class="status-badge status-overdue">⚠️ Overdue</span>
+              <span *ngIf="!book.isReturned && isDueSoon(book.dueDate) && !isOverdue(book.dueDate)" class="status-badge status-soon">🔔 Due Soon</span>
+              <span *ngIf="!book.isReturned && !isOverdue(book.dueDate) && !isDueSoon(book.dueDate)" class="status-badge status-active">✅ On Time</span>
+            </div>
+          </div>
+        </div>
+        <mat-paginator 
+          [length]="issuedBooks.length"
+          [pageSize]="issuedPageSize"
+          [pageIndex]="issuedPageIndex"
+          [pageSizeOptions]="[4, 8, 12]"
+          (page)="onIssuedPageChange($event)"
+          class="dashboard-paginator">
+        </mat-paginator>
+      </div>
+      <ng-template #emptyIssued>
+        <div class="empty-state">
+          <span>📤</span>
+          <p>No borrowed books at the moment.</p>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Returned Tab -->
+    <div class="book-panel" *ngIf="activeTab === 'returned'">
+      <div *ngIf="returnedBooks.length > 0; else emptyReturned">
+        <div class="book-grid">
+          <div class="book-card" *ngFor="let book of paginatedReturnedBooks">
+            <div class="book-top">
+              <div class="book-cover">📗</div>
+              <div class="book-meta">
+                <h3 class="book-title">{{ book.title }}</h3>
+                <p class="book-author">by {{ book.author }}</p>
+                <span class="book-id">ID: {{ book.bookId }}</span>
+              </div>
+            </div>
+            <div class="book-dates">
+              <div class="date-row">
+                <span class="date-label">Returned:</span>
+                <span class="date-val">{{ book.returnedDate }}</span>
+              </div>
+            </div>
+            <div class="status-row">
+              <span class="status-badge status-active">✅ Returned</span>
+              <span *ngIf="book.penaltyAmount > 0" class="fine-chip">
+                Fine: Rs. {{ book.penaltyAmount | number:'1.2-2' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <mat-paginator 
+          [length]="returnedBooks.length"
+          [pageSize]="returnedPageSize"
+          [pageIndex]="returnedPageIndex"
+          [pageSizeOptions]="[4, 8, 12]"
+          (page)="onReturnedPageChange($event)"
+          class="dashboard-paginator">
+        </mat-paginator>
+      </div>
+      <ng-template #emptyReturned>
+        <div class="empty-state">
+          <span>📥</span>
+          <p>No return history available.</p>
+        </div>
+      </ng-template>
+    </div>
+
+  </ng-container>
 </div>

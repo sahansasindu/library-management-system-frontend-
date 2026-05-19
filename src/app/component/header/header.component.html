@@ -1,0 +1,43 @@
+<header class="admin-header" [ngClass]="{'user-header-theme': role === 'user'}">
+  <div class="header-left">
+    <button class="menu-btn" (click)="toggleMenu()" aria-label="Toggle menu" title="Toggle menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div class="brand">
+      <mat-icon class="brand-icon" [style.color]="role === 'admin' ? '#3b82f6' : '#8b5cf6'">auto_stories</mat-icon>
+      <span class="brand-text" [ngClass]="{'user-brand': role === 'user'}">
+        {{ role === 'admin' ? 'Library Admin' : 'My Library' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="action-btn" aria-label="Notifications" title="Notifications">
+      <mat-icon>notifications</mat-icon>
+      <span class="badge">{{ role === 'admin' ? '3' : '2' }}</span>
+    </button>
+
+    <div class="profile-wrapper">
+      <div class="user-profile" (click)="toggleDropdown()">
+        <img [src]="'https://ui-avatars.com/api/?name=' + userName + '&background=' + (role === 'admin' ? '3b82f6' : '8b5cf6') + '&color=fff&bold=true'" alt="User avatar" class="avatar">
+        <div class="user-info">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-role">{{ role === 'admin' ? 'Administrator' : 'Library Member' }}</span>
+        </div>
+        <mat-icon class="dropdown-icon" [style.transform]="isDropdownOpen ? 'rotate(180deg)' : 'none'" style="transition: transform 0.2s ease;">expand_more</mat-icon>
+      </div>
+
+      <!-- Profile Dropdown Menu -->
+      <div class="profile-dropdown-menu" *ngIf="isDropdownOpen" (mouseleave)="closeDropdown()">
+        <a [routerLink]="role === 'admin' ? '/admin/manageprofile' : '/user/manageuserprofile'" class="dropdown-item" (click)="closeDropdown()">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>Manage Profile</span>
+        </a>
+        <a routerLink="" class="dropdown-item logout-item" (click)="closeDropdown()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
