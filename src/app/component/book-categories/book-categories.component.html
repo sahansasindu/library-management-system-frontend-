@@ -2,18 +2,35 @@
   <div class="card-header bg-white border-0 text-center pt-4 pb-2">
     <h5 class="mb-0 fw-bold">Book Categories</h5>
   </div>
-  <div class="card-body">
-    <div class="d-flex align-items-center mb-3" *ngFor="let cat of categories">
-      <div class="category-label text-end pe-3 text-muted">
-        <small>{{ cat.name }}</small>
+  <div class="card-body donut-chart-container">
+
+    <div class="donut-visual">
+      <svg viewBox="0 0 140 140" width="100%" height="100%" class="donut-svg">
+
+        <circle cx="70" cy="70" r="50" fill="transparent" stroke="rgba(255,255,255,0.06)" stroke-width="12" />
+
+        <circle *ngFor="let slice of donutSlices; let i = index" cx="70" cy="70" r="50" fill="transparent"
+          [attr.stroke]="slice.color" stroke-width="12" [attr.stroke-dasharray]="slice.dashArray"
+          [attr.stroke-dashoffset]="slice.dashOffset" class="donut-segment"
+          [style.transition]="'stroke-dashoffset 0.8s ease-in-out, stroke-dasharray 0.8s ease-in-out'" />
+      </svg>
+      <div class="donut-center-info">
+        <span class="total-number">{{ totalCount }}</span>
+        <span class="total-label">Total Books</span>
       </div>
-      <div class="flex-grow-1">
-        <div class="progress rounded-0" style="height: 18px;">
-          <div class="progress-bar" role="progressbar" [style.width]="cat.width" [style.background-color]="cat.color"></div>
+    </div>
+
+
+    <div class="donut-legend">
+      <div class="legend-item" *ngFor="let slice of donutSlices">
+        <div class="legend-bullet" [style.background-color]="slice.color"></div>
+        <div class="legend-info">
+          <span class="legend-name">{{ slice.name }}</span>
+          <div class="legend-stats">
+            <span class="legend-count">{{ slice.count }}</span>
+            <span class="legend-percentage">{{ slice.percentage }}%</span>
+          </div>
         </div>
-      </div>
-      <div class="category-count ps-2 text-muted">
-        <small>{{ cat.count }}</small>
       </div>
     </div>
   </div>
