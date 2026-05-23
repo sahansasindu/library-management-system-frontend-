@@ -13,21 +13,15 @@ Once installation is complete, you can start the Angular application:<br>
 ng serve<br>
 This will start the Angular development server, usually on http://localhost:4200/.
 
-
 ![Screenshot 2025-03-30 231606](https://github.com/user-attachments/assets/8a706c97-6546-44b4-928e-c8e55faf6018)
 
 ![Screenshot 2025-03-30 231617](https://github.com/user-attachments/assets/5518a82b-df44-4b80-9967-bfe22a531be4)
 
-![Screenshot 2025-03-31 171552](https://github.com/user-attachments/assets/38e78edd-d97d-47e1-8868-74fd9ffb6806)
-
-
-![Screenshot 2025-03-30 232748](https://github.com/user-attachments/assets/de0a6e57-97d8-41cb-a45b-7577a0d2fd13)
-
-![Screenshot 2025-03-30 231747](https://github.com/user-attachments/assets/b6278605-3017-4e2f-aade-77d3db468f4a)
-
-![Screenshot 2025-03-30 231826](https://github.com/user-attachments/assets/d8111a30-1b1b-4134-a227-3d9b1476b4b0)
-
-![Screenshot 2025-03-30 231846](https://github.com/user-attachments/assets/ceee6d01-a740-4593-9473-ff9eadb228ff)
+<img width="1909" height="908" alt="Screenshot 2026-05-20 193856" src="https://github.com/user-attachments/assets/0b9f85f9-a844-4328-8bc8-bbc024048041" />
+<img width="1893" height="902" alt="Screenshot 2026-05-20 193840" src="https://github.com/user-attachments/assets/c4bac7b4-f13e-482d-8956-c97d3e3b80e6" />
+<img width="1901" height="905" alt="Screenshot 2026-05-20 193729" src="https://github.com/user-attachments/assets/991530d9-b9f8-4b10-93d9-5c8446b9eb3a" />
+<img width="1913" height="908" alt="Screenshot 2026-05-20 193753" src="https://github.com/user-attachments/assets/7c1c3a44-6971-4d7d-8b08-4384ce268027" />
+<img width="1917" height="907" alt="Screenshot 2026-05-20 193740" src="https://github.com/user-attachments/assets/604a234a-9955-435b-963e-69f4a8b1bc83" />
 
 
 
